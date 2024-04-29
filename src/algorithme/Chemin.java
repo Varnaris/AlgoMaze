@@ -1,6 +1,7 @@
 package algorithme;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+import java.util.Set;
 
 
 public class Chemin implements Iterator<Coordonnee>{
@@ -57,10 +58,7 @@ public class Chemin implements Iterator<Coordonnee>{
 		}
 	}*/
 	
-	public Chemin(SommetGraphe debut, SommetGraphe fin) {
-		this(debut, fin, null);
-	}
-	
+	/*
 	private Chemin(SommetGraphe debut, SommetGraphe fin, Chemin cSuivant) {
 		if (debut.equals(fin)) {
             actuel = debut.getCoordonnee();
@@ -75,7 +73,32 @@ public class Chemin implements Iterator<Coordonnee>{
         	fin = fin.getPredecesseur();
         	new Chemin(debut, fin, new Chemin(this, new Coordonnee(actuel, fin.getCoordonnee())));
 		}
+	}*/
+	
+	public Chemin(SommetGraphe debut, SommetGraphe fin) {
+		this(debut, fin.getPredecesseurs());
 	}
+	
+	private Chemin(SommetGraphe debut, Set<SommetGraphe> fin) {
+		actuel = debut.getCoordonnee();
+		if (fin.contains(debut)) {
+			suivant = getCheminInverse(debut, fin.iterator().next(), null);
+		} else {
+			debut = debut.getPredecesseur();
+			suivant = new Chemin(new Chemin(debut, fin), new Coordonnee(actuel, debut.getCoordonnee()));
+		}
+	}
+	
+	private Chemin getCheminInverse(SommetGraphe debut, SommetGraphe fin, Chemin cSuivant) {
+		if (debut.equals(fin)) {
+			return new Chemin(cSuivant, debut.getCoordonnee());
+		}
+		Chemin c = new Chemin(cSuivant, fin.getCoordonnee());
+		fin = fin.getPredecesseur();
+		c = new Chemin(c, new Coordonnee(fin.getCoordonnee(), c.getCoordonnee()));
+		return getCheminInverse(debut,fin, c);
+	}
+
 	
 	private Chemin(Chemin suivant, Coordonnee actuel) {
 		this.suivant = suivant;

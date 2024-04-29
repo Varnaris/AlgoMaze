@@ -72,7 +72,7 @@ public class SommetGraphe implements Comparable<SommetGraphe>, Iterable<SommetGr
 		};
 	}
 	
-	public Set<SommetGraphe> predecesseurs() {
+	public Set<SommetGraphe> getPredecesseurs() {
 		Set<SommetGraphe> predecesseurs = new LinkedHashSet<>();
 		for (SommetGraphe s : this) {
 			predecesseurs.add(s);
