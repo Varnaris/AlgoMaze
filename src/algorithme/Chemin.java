@@ -8,7 +8,6 @@ public class Chemin implements Iterator<Coordonnee>{
 	private Chemin suivant;
 	private Coordonnee actuel;
 	
-	
 	/*
 	public Chemin(SommetGraphe debut, SommetGraphe fin) {
 		Chemin chemin2 = null;
@@ -99,7 +98,6 @@ public class Chemin implements Iterator<Coordonnee>{
 		return getCheminInverse(debut,fin, c);
 	}
 
-	
 	private Chemin(Chemin suivant, Coordonnee actuel) {
 		this.suivant = suivant;
 		this.actuel = actuel;
@@ -111,6 +109,13 @@ public class Chemin implements Iterator<Coordonnee>{
 	
 	public Chemin getSuivant() {
 		return suivant;
+	}
+	
+	public int taille() {
+		if (suivant == null) {
+			return 1;
+		}
+		return 1 + suivant.taille();
 	}
 	
 	public boolean estSurChemin(Coordonnee c) {

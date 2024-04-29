@@ -14,7 +14,7 @@ import java.util.HashMap;
 public class Labyrinthe implements Iterable<Iterable<Coordonnee>>{
     public static final Random RANDOM = new Random();
     private static float COEFF1 = 0.9f;
-    private static float COEFF2 = 0.5f;
+    private static float COEFF2 = 0.9f;
     private static float COEFF3 = 0.1f;
     private static int TAILLE = 17;
     private static int LARGEUR = TAILLE * 2 + 1;
@@ -28,6 +28,7 @@ public class Labyrinthe implements Iterable<Iterable<Coordonnee>>{
 		labyrinthe = initSommetIsolees();
 		Set<Coordonnee> sommetsIsoles = initSommetIsolees();
 		Coordonnee debut = initDebutFin();
+		
 		SommetGraphe racine = new SommetGraphe(debut, null);
 		ComposanteGraphe composante = new ComposanteGraphe(racine);
 		sommetsIsoles.remove(debut);
@@ -42,9 +43,17 @@ public class Labyrinthe implements Iterable<Iterable<Coordonnee>>{
 	}
 	
 	private Coordonnee initDebutFin() {
-		labyrinthe.add(new Coordonnee(0, TAILLE));
-		labyrinthe.add(new Coordonnee(LARGEUR - 1, TAILLE));
-		return new Coordonnee(1, TAILLE);
+		labyrinthe.add(getdebut());
+		labyrinthe.add(getFin());
+		return new Coordonnee(RANDOM.nextInt(TAILLE)*2+1, RANDOM.nextInt(TAILLE)*2+1);
+	}
+	
+	public Coordonnee getdebut() {
+		return new Coordonnee(0, TAILLE);
+	}
+	
+	public Coordonnee getFin() {
+		return new Coordonnee(LARGEUR - 1, TAILLE);
 	}
 	
 	private void ajouterSommetGraphe(SommetGraphe sommet) {
