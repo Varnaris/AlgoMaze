@@ -7,6 +7,7 @@ public class Direction extends Coordonnee {
 	public static final Direction DROITE = new Direction(1, 0);
 	
 	public static final Direction[] DIRECTIONS = {HAUT, BAS, GAUCHE, DROITE};
+	public static final Direction[] DIRECTIONS2 = {HAUT.mul(2), BAS.mul(2), GAUCHE.mul(2), DROITE.mul(2)};
 	
 	private Direction(int x, int y) {
 		super(x, y);

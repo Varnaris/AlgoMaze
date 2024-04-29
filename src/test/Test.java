@@ -1,15 +1,15 @@
 package test;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import algorithme.*;
 public class Test {
 	public static void main(String[] args) {
 		Labyrinthe l = new Labyrinthe();
-		Coordonnee debut = new Coordonnee(1, 17);
-		Coordonnee fin = new Coordonnee(33, 17);
+		Coordonnee debut = new Coordonnee(0, 17);
+		Coordonnee fin = new Coordonnee(34, 17);
 		Chemin chemin = l.trouverChemin(debut, fin);
-		Set<Coordonnee> cheminSet = new HashSet<>();
+		List<Coordonnee> cheminSet = new ArrayList<>();
 		cheminSet.add(chemin.getCoordonnee());
 		while (chemin.hasNext()) {
 			cheminSet.add(chemin.next());

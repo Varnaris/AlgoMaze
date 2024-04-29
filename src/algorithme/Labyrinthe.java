@@ -94,7 +94,25 @@ public class Labyrinthe implements Iterable<Iterable<Coordonnee>>{
 	}
 	
 	public Chemin trouverChemin(Coordonnee debut, Coordonnee fin) {
-		return new Chemin(graphe.get(debut), graphe.get(fin));
+		SommetGraphe debutSommet = getSommetGrapheAjacent(debut);
+		SommetGraphe finSommet = getSommetGrapheAjacent(fin);
+		Chemin chemin = new Chemin(debutSommet, finSommet);
+		chemin.corrigerFinChemin(fin);
+		chemin.corrigerDebutChemin(debut);
+		return chemin;
+	}
+	
+	private SommetGraphe getSommetGrapheAjacent(Coordonnee c) {
+		if (graphe.containsKey(c)) {
+			return graphe.get(c);
+		}
+		for (Direction dir : Direction.DIRECTIONS) {
+			Coordonnee c2 = c.addMod(dir);
+			if (graphe.containsKey(c2)) {
+				return graphe.get(c2);
+			}
+		}
+		return null;
 	}
 
 	@Override

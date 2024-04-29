@@ -91,7 +91,7 @@ public class Chemin implements Iterator<Coordonnee>{
 	
 	private Chemin getCheminInverse(SommetGraphe debut, SommetGraphe fin, Chemin cSuivant) {
 		if (debut.equals(fin)) {
-			return new Chemin(cSuivant, debut.getCoordonnee());
+			return cSuivant;
 		}
 		Chemin c = new Chemin(cSuivant, fin.getCoordonnee());
 		fin = fin.getPredecesseur();
@@ -144,7 +144,7 @@ public class Chemin implements Iterator<Coordonnee>{
 		return new Direction(debut, fin);
 	}
 	
-	public void corrigerChemin(Coordonnee c) {
+	public void corrigerFinChemin(Coordonnee c) {
 		if (actuel.equals(c)) {
 			suivant = null;
 		}
@@ -158,7 +158,23 @@ public class Chemin implements Iterator<Coordonnee>{
 				suivant = new Chemin(new Chemin(null, c), new Coordonnee(actuel, c));
 			}
 		} else {
-			suivant.corrigerChemin(c);
+			suivant.corrigerFinChemin(c);
+		}
+	}
+	
+	public void corrigerDebutChemin(Coordonnee c) {
+		System.out.println(actuel + " " + c);
+		System.out.println(suivant.getCoordonnee());
+		if (actuel.equals(c)) {
+			return;
+		}
+		if (suivant.getCoordonnee().equals(c)) {
+			actuel = c;
+			suivant = suivant.getSuivant();
+		} else {
+			Chemin ch = new Chemin(suivant, actuel);
+			actuel = c;
+			suivant = ch;
 		}
 	}
 	
