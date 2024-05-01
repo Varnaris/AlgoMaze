@@ -1,5 +1,7 @@
 package affichage;
 import algorithme.*;
+
+import org.lwjgl.opengl.Display;
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.*;
 import java.util.Set;
@@ -9,25 +11,18 @@ public class AfficherLabyrinthe {
 	private final int TAILLE_CASE = 25;
 	private Coordonnee coordLabyrinthe;
 	private Coordonnee coordCentreImage;
+	private Direction deplacement;
 	
 	public AfficherLabyrinthe(Labyrinthe labyrinthe) {
         this.labyrinthe = labyrinthe;
         coordLabyrinthe = labyrinthe.getDebut();
         coordCentreImage = coordLabyrinthe.mul(TAILLE_CASE);
+        deplacement = Direction.NULLE;
     }
 	
-    //write a prpogram that displays the maze with slick2d
-	//there is only one public method in this class : "public void afficherLabyrinthe(Coordonnee centre, GameContainer gc, Graphics g)"
-	
-	//this method displays the maze with the center at the coordinates "centre"
-	//the maze is displayed with the graphics object "g"
-	//the game container "gc" is used to get the width and height of the window
-	
-	//the maze is displayed as follows:
-	// - the center of the maze is at the coordinates "centre"
-	// - the maze is displayed in a grid of squares of size "TAILLE_CASE"
-	// - the squares that are part of the maze are displayed in white
-	// - the squares that are not part of the maze are displayed in black
+	public void setDeplacement(Direction d) {
+		deplacement = d;
+	}
 	
 	public void afficherLabyrinthe(GameContainer gc, Graphics g) {
 		int x = coordLabyrinthe.getX() - (gc.getWidth() / TAILLE_CASE) / 2;
@@ -40,16 +35,16 @@ public class AfficherLabyrinthe {
 				} else {
 					g.setColor(Color.white);
 				}
-				g.fillRect(i * TAILLE_CASE, j * TAILLE_CASE, TAILLE_CASE, TAILLE_CASE);
+				g.fillRect(i * TAILLE_CASE + deplacement.getX(), j * TAILLE_CASE + deplacement.getY(), TAILLE_CASE, TAILLE_CASE);
 			}
 		}
 	}
 	
-	public void afficherChemin(Set<Coordonnee> cheminSet,Coordonnee centre, GameContainer gc, Graphics g) {
+	public void afficherChemin(Set<Coordonnee> cheminSet, GameContainer gc, Graphics g) {
         for (Coordonnee c : cheminSet) {
             g.setColor(Color.green);
-			g.fillRect((c.getX() - centre.getX() + gc.getWidth() / TAILLE_CASE / 2) * TAILLE_CASE,
-					(c.getY() - centre.getY() + gc.getHeight() / TAILLE_CASE / 2) * TAILLE_CASE, TAILLE_CASE,
+			g.fillRect((c.getX() - coordLabyrinthe.getX() + gc.getWidth() / TAILLE_CASE / 2) * TAILLE_CASE,
+					(c.getY() - coordLabyrinthe.getY() + gc.getHeight() / TAILLE_CASE / 2) * TAILLE_CASE, TAILLE_CASE,
 					TAILLE_CASE);
         }
         
@@ -71,7 +66,7 @@ public class AfficherLabyrinthe {
 						private AfficherLabyrinthe afficherLabyrinthe = new AfficherLabyrinthe(l);
 						private Coordonnee centre = new Coordonnee(Labyrinthe.getLargeur() / 2,
 								Labyrinthe.getLargeur() / 2);
-						private int modo = 1;
+						private Direction deplacement = Direction.NULLE;
 						@Override
 						public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
 						}
@@ -81,15 +76,16 @@ public class AfficherLabyrinthe {
 							g.setColor(Color.white);
 							System.out.println("render");
 							afficherLabyrinthe.afficherLabyrinthe(gc, g);
-							afficherLabyrinthe.afficherChemin(cheminSet,centre, gc, g);
-							modo = (modo == 1 ? -1 : 1);
-							centre = new Coordonnee(centre.getX() + modo, centre.getY());
+							afficherLabyrinthe.afficherChemin(cheminSet, gc, g);
+							deplacement = deplacement.add(Direction.DROITE);
+							System.out.println(deplacement);
+							afficherLabyrinthe.setDeplacement(deplacement);
 							
 						}
 
 						@Override
 						public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
-							
+							System.out.println("update");
 						}
 
 						@Override
@@ -103,6 +99,7 @@ public class AfficherLabyrinthe {
 			appgc.setShowFPS(false);
 			appgc.setTargetFrameRate(60);
 			appgc.setTitle("AlgoMaze");
+			Display.setResizable(true);
 			//appgc.setAlwaysRender(false);
 			appgc.start();
 		} catch (SlickException ex) {

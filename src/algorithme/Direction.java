@@ -5,6 +5,7 @@ public class Direction extends Coordonnee {
 	public static final Direction BAS = new Direction(0, 1);
 	public static final Direction GAUCHE = new Direction(-1, 0);
 	public static final Direction DROITE = new Direction(1, 0);
+	public static final Direction NULLE = new Direction(0, 0);
 	
 	public static final Direction[] DIRECTIONS = {HAUT, BAS, GAUCHE, DROITE};
 	public static final Direction[] DIRECTIONS2 = {HAUT.mul(2), BAS.mul(2), GAUCHE.mul(2), DROITE.mul(2)};
@@ -23,6 +24,10 @@ public class Direction extends Coordonnee {
 	
 	public Direction mul(int n) {
 		return new Direction(this.getX() * n, this.getY() * n);
+	}
+	
+	public Direction add(Direction c) {
+		return new Direction(this.getX() + c.getX(), this.getY() + c.getY());
 	}
 	
 	public Direction[] dirTengeantes() {
