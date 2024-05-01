@@ -16,7 +16,7 @@ public class Labyrinthe implements Iterable<Iterable<Coordonnee>>{
     private static float COEFF1 = 0.9f;
     private static float COEFF2 = 0.9f;
     private static float COEFF3 = 0.1f;
-    private static int TAILLE = 17;
+    private static int TAILLE = 41;
     private static int LARGEUR = TAILLE * 2 + 1;
     
     private Map<Coordonnee, SommetGraphe> graphe;
@@ -43,12 +43,12 @@ public class Labyrinthe implements Iterable<Iterable<Coordonnee>>{
 	}
 	
 	private Coordonnee initDebutFin() {
-		labyrinthe.add(getdebut());
+		labyrinthe.add(getDebut());
 		labyrinthe.add(getFin());
 		return new Coordonnee(RANDOM.nextInt(TAILLE)*2+1, RANDOM.nextInt(TAILLE)*2+1);
 	}
 	
-	public Coordonnee getdebut() {
+	public Coordonnee getDebut() {
 		return new Coordonnee(0, TAILLE);
 	}
 	

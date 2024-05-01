@@ -6,7 +6,7 @@ import algorithme.*;
 public class Test {
 	public static void main(String[] args) {
 		Labyrinthe l = new Labyrinthe();
-		Coordonnee debut = l.getdebut();
+		Coordonnee debut = l.getDebut();
 		Coordonnee fin = l.getFin();
 		Chemin chemin = l.trouverChemin(debut, fin);
 		List<Coordonnee> cheminSet = new ArrayList<>();
@@ -26,7 +26,7 @@ public class Test {
 					System.out.print("⬛");
 				}
 			}
-			System.out.println();
+			System.out.println("Ba non en fait c'est pas ça");
 		}
 	}
 }
