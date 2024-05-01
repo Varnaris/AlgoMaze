@@ -14,9 +14,9 @@ import java.util.HashMap;
 public class Labyrinthe implements Iterable<Iterable<Coordonnee>>{
     public static final Random RANDOM = new Random();
     private static float COEFF1 = 0.9f;
-    private static float COEFF2 = 0.9f;
+    private static float COEFF2 = 0.0f;
     private static float COEFF3 = 0.1f;
-    private static int TAILLE = 41;
+    private static int TAILLE = 11;
     private static int LARGEUR = TAILLE * 2 + 1;
     
     private Map<Coordonnee, SommetGraphe> graphe;

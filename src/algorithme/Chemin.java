@@ -118,6 +118,12 @@ public class Chemin implements Iterator<Coordonnee>{
 		return 1 + suivant.taille();
 	}
 	
+	public Set<Coordonnee> getCoordonnees() {
+		Set<Coordonnee> set = (suivant == null) ? new java.util.HashSet<>() : suivant.getCoordonnees();
+		set.add(actuel);
+		return set;
+	}
+	
 	public boolean estSurChemin(Coordonnee c) {
 		if (actuel.equals(c)) {
 			return true;
