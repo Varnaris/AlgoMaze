@@ -52,6 +52,10 @@ public class Chemin implements Iterator<Coordonnee>{
 		return 1 + suivant.taille();
 	}
 	
+	public boolean estLigneDroite() {	
+		return (suivant == null) || (getMod().equals(suivant.getMod()) && suivant.estLigneDroite());
+    }
+	
 	public Set<Coordonnee> getCoordonnees() {
 		Set<Coordonnee> set = (suivant == null) ? new java.util.HashSet<>() : suivant.getCoordonnees();
 		set.add(actuel);
@@ -83,10 +87,8 @@ public class Chemin implements Iterator<Coordonnee>{
 		return actuel;
 	}
 	
-	public Direction nextMod() {
-		Coordonnee debut = actuel;
-		Coordonnee fin = next();
-		return new Direction(debut, fin);
+	public Direction getMod() {
+		return new Direction(actuel, suivant.getCoordonnee());
 	}
 	
 	public void corrigerFinChemin(Coordonnee c) {
