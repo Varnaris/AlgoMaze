@@ -53,7 +53,7 @@ public class Chemin implements Iterator<Coordonnee>{
 	}
 	
 	public boolean estLigneDroite() {	
-		return (suivant == null) || (getMod().equals(suivant.getMod()) && suivant.estLigneDroite());
+		return (suivant == null || suivant.getSuivant() == null) || (getMod().equals(suivant.getMod()) && suivant.estLigneDroite());
     }
 	
 	public Set<Coordonnee> getCoordonnees() {
@@ -88,6 +88,9 @@ public class Chemin implements Iterator<Coordonnee>{
 	}
 	
 	public Direction getMod() {
+		if (suivant == null) {
+			return Direction.NULLE;
+		}
 		return new Direction(actuel, suivant.getCoordonnee());
 	}
 	
