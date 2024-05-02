@@ -26,7 +26,7 @@ public class Test {
 					System.out.print("⬛");
 				}
 			}
-			System.out.println("Ba non en fait c'est pas ça");
+			System.out.println();
 		}
 	}
 }
