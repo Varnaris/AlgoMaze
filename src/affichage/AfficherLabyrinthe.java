@@ -8,7 +8,7 @@ import java.util.Set;
 
 public class AfficherLabyrinthe {
 	private Labyrinthe labyrinthe;
-	private final int TAILLE_CASE = 25;
+	private final int TAILLE_CASE = 60;
 	private Coordonnee coordLabyrinthe;
 	private Coordonnee coordCentreImage;
 	private Direction deplacement;
@@ -21,7 +21,7 @@ public class AfficherLabyrinthe {
     }
 	
 	public void setDeplacement(Direction d) {
-		deplacement = d;
+		coordLabyrinthe = coordLabyrinthe.addMod(d);
 	}
 	
 	public void afficherLabyrinthe(GameContainer gc, Graphics g) {
@@ -35,7 +35,7 @@ public class AfficherLabyrinthe {
 				} else {
 					g.setColor(Color.white);
 				}
-				g.fillRect(i * TAILLE_CASE + deplacement.getX(), j * TAILLE_CASE + deplacement.getY(), TAILLE_CASE, TAILLE_CASE);
+				g.fillRect(i * TAILLE_CASE , j * TAILLE_CASE, TAILLE_CASE, TAILLE_CASE);
 			}
 		}
 	}

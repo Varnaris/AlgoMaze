@@ -31,6 +31,7 @@ public class Main extends BasicGameState {
 
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
+		affichage.setDeplacement(deplacement);
 		affichage.afficherLabyrinthe(gc, g);
 		affichage.afficherChemin(cheminSet, gc, g);
 	}
