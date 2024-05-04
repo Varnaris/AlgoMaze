@@ -27,7 +27,7 @@ public class Main extends BasicGameState {
 		labyrinthe = new Labyrinthe(31);
 		debut = labyrinthe.getDebut();
 		fin = labyrinthe.getFin();
-		affichage = new AfficherLabyrinthe(labyrinthe,150);
+		affichage = new AfficherLabyrinthe(labyrinthe,175);
 		Set<Coordonnee> cheminSet = labyrinthe.trouverChemin(debut, fin).getCoordonnees();
 		cheminSet = Utils.getRandomSubset(cheminSet, 0.5f);
 		affichage.setCheminSet(cheminSet);
