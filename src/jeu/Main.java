@@ -59,16 +59,16 @@ public class Main extends BasicGameState {
 		}
 		deplacement = Direction.NULLE;
 		Input input = gc.getInput();
-		if (input.isKeyDown(Input.KEY_S)) {
+		if (input.isKeyDown(Input.KEY_S) || input.isKeyDown(Input.KEY_DOWN)) {
 			deplacement = deplacement.add(Direction.BAS);
 		}
-		if (input.isKeyDown(Input.KEY_Z)) {
+		if (input.isKeyDown(Input.KEY_Z) || input.isKeyDown(Input.KEY_UP)) {
 			deplacement = deplacement.add(Direction.HAUT);
 		}
-		if (input.isKeyDown(Input.KEY_Q)) {
+		if (input.isKeyDown(Input.KEY_Q) || input.isKeyDown(Input.KEY_LEFT)) {
 			deplacement = deplacement.add(Direction.GAUCHE);
 		}
-		if (input.isKeyDown(Input.KEY_D)) {
+		if (input.isKeyDown(Input.KEY_D) || input.isKeyDown(Input.KEY_RIGHT)) {
 			deplacement = deplacement.add(Direction.DROITE);
 		}
 	}
