@@ -7,7 +7,6 @@ public class Sprite {
 	private String nom;
 	private int nbSprite;
 	private int cycle;
-	public int itCat = 0;
 	
 	private Image[] spritesHaut;
 	private Image[] spritesBas;
@@ -40,8 +39,8 @@ public class Sprite {
 		}
 	}
 	
-	public Image getSprite(Direction d) {
-		int n = (itCat % cycle) * nbSprite / cycle;
+	public Image getSprite(Direction d, int tempsDeplacement) {
+		int n = (tempsDeplacement % cycle) * nbSprite / cycle;
 		if (d.equals(Direction.HAUT)) {
 			return spritesHaut[n];
         } else if (d.equals(Direction.BAS)) {

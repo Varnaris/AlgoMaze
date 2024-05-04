@@ -14,4 +14,16 @@ public class Utils {
 		}
 		return it.next();
 	}
+	
+	public static <T> Set<T> getRandomSubset(Set<T> set, float coeff) {
+		Set<T> subset = set;
+		int nbElements = (int) (set.size() * ( 1 - coeff));
+		for (int i = 0; i < nbElements; i++) {
+			T element = getRandomFromSet(set);
+			subset.add(element);
+			set.remove(element);
+		}
+		set.addAll(subset);
+		return subset;
+	}
 }

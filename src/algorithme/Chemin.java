@@ -116,8 +116,6 @@ public class Chemin implements Iterator<Coordonnee>{
 	}
 	
 	public void corrigerDebutChemin(Coordonnee c) {
-		System.out.println(actuel + " " + c);
-		System.out.println(suivant.getCoordonnee());
 		if (actuel.equals(c)) {
 			return;
 		}

@@ -11,7 +11,13 @@ public class AfficherLabyrinthe {
 	private Coordonnee coordLabyrinthe;
 	private Coordonnee coordCentreImage;
 	private Direction deplacement;
-	private int tempsDeplacementMax;
+	private int tempsDeplacement = 0;
+	private final int tempsDeplacementMax;
+	
+	private final Sprite chat;
+	private Image imageChat;
+	
+	private Set<Coordonnee> cheminSet;
 	
 	public AfficherLabyrinthe(Labyrinthe labyrinthe, int tempsDeplacementMax) {
         this.labyrinthe = labyrinthe;
@@ -19,20 +25,51 @@ public class AfficherLabyrinthe {
         coordCentreImage = coordLabyrinthe.mul(Main.TAILLECASE);
         deplacement = Direction.NULLE;
         this.tempsDeplacementMax = tempsDeplacementMax;
+        chat = new Sprite("CatSprits", 4, tempsDeplacementMax);
+        imageChat = chat.getSprite(Direction.NULLE, 0);
     }
+	
+	public void setCheminSet(Set<Coordonnee> cheminSet) {
+		this.cheminSet = cheminSet;
+	}
+	
+	public Coordonnee getCoordChat() {
+		return coordLabyrinthe;
+	}
 	
 	public boolean estDeplacementValide(Direction d) {
 		Coordonnee coord = coordLabyrinthe.addMod(d);
 		return labyrinthe.estValide(coord) && !labyrinthe.estNoir(coord);
 	}
 	
+	public boolean estDeplacementNul() {
+		return deplacement.equals(Direction.NULLE);
+	}
+	
+	public void updateLabyrinthe(int delta) {
+		if (!deplacement.equals(Direction.NULLE)) {
+			updateTempsDeplacement(delta);
+			imageChat = chat.getSprite(deplacement, tempsDeplacement);
+			if (tempsDeplacement >= tempsDeplacementMax) {
+				tempsDeplacement = 0;
+				coordLabyrinthe = coordLabyrinthe.addMod(deplacement);
+				coordCentreImage = coordLabyrinthe.mul(Main.TAILLECASE);
+				deplacement = Direction.NULLE;
+			}
+		}
+	}
+	
 	public void faireDeplacement(Direction d) {
-		coordLabyrinthe = coordLabyrinthe.addMod(deplacement);
-		coordCentreImage = coordLabyrinthe.mul(Main.TAILLECASE);
-		deplacement = d;
+		imageChat = chat.getSprite(d, 0);
+		if (estDeplacementValide(d)) {
+			coordLabyrinthe = coordLabyrinthe.addMod(deplacement);
+			coordCentreImage = coordLabyrinthe.mul(Main.TAILLECASE);
+			deplacement = d;
+		}
 	}
 	
 	public void updateTempsDeplacement(int delta) {
+		tempsDeplacement += delta;
 		float f = (float) delta / tempsDeplacementMax;
 		Direction d = deplacement.mul(Main.TAILLECASE * f);
 		coordCentreImage = coordCentreImage.addMod(d);
@@ -49,7 +86,9 @@ public class AfficherLabyrinthe {
 			for (int j = 0; j < largeur; j++) {
 				Coordonnee coord = new Coordonnee(x + i, y + j);
 				if (labyrinthe.estValide(coord)) {
-					if (!labyrinthe.estNoir(coord)) {
+					if (cheminSet.contains(coord)) {
+						g.setColor(Color.green);
+					} else if (!labyrinthe.estNoir(coord)) {
 						g.setColor(Color.white);
 					} else {
 						g.setColor(Color.black);
@@ -60,6 +99,7 @@ public class AfficherLabyrinthe {
 				}
 			}
 		}
+		imageChat.draw(gc.getWidth() / 2, gc.getHeight() / 2, Main.TAILLECASE, Main.TAILLECASE);
 	}
 	
 	public void afficherChemin(Set<Coordonnee> cheminSet, GameContainer gc, Graphics g) {
@@ -70,61 +110,4 @@ public class AfficherLabyrinthe {
 					Main.TAILLECASE);
 		}
     }
-	/*
-	//main method
-	public static void main(String[] args) {
-		try {
-			AppGameContainer appgc;
-			Labyrinthe l = new Labyrinthe();
-			Coordonnee debut = l.getDebut();
-			Coordonnee fin = l.getFin();
-			Chemin chemin = l.trouverChemin(debut, fin);
-			Set<Coordonnee> cheminSet = chemin.getCoordonnees();
-			appgc = new AppGameContainer(new StateBasedGame("Afficher Labyrinthe") {
-				@Override
-				public void initStatesList(GameContainer gc) throws SlickException {
-					addState(new BasicGameState() {
-						private AfficherLabyrinthe afficherLabyrinthe = new AfficherLabyrinthe(l);
-						private Coordonnee centre = new Coordonnee(Labyrinthe.getLargeur() / 2,
-								Labyrinthe.getLargeur() / 2);
-						private Direction deplacement = Direction.NULLE;
-						@Override
-						public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
-						}
-
-						@Override
-						public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
-							g.setColor(Color.white);
-							System.out.println("render");
-							afficherLabyrinthe.afficherLabyrinthe(gc, g);
-							afficherLabyrinthe.afficherChemin(cheminSet, gc, g);
-							deplacement = deplacement.add(Direction.DROITE);
-							System.out.println(deplacement);
-							afficherLabyrinthe.faireDeplacement(deplacement);
-							
-						}
-
-						@Override
-						public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
-							System.out.println("update");
-						}
-
-						@Override
-						public int getID() {
-							return 1;
-						}
-					});
-				}
-			});
-			appgc.setDisplayMode(appgc.getScreenWidth(), appgc.getScreenHeight(), false);
-			appgc.setShowFPS(false);
-			appgc.setTargetFrameRate(60);
-			appgc.setTitle("AlgoMaze");
-			Display.setResizable(true);
-			//appgc.setAlwaysRender(false);
-			appgc.start();
-		} catch (SlickException ex) {
-			ex.printStackTrace();
-		}
-	}*/
 }
