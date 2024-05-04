@@ -12,9 +12,11 @@ import org.newdawn.slick.*;
 import org.newdawn.slick.state.*;
 
 public class Main extends BasicGameState {
+	public static final int TAILLECASE = 60;
 	public static final Random RANDOM = new Random();
 	public static final int LARGEURMAX = 201;
 	
+	private Image cat = null; 
 	private Labyrinthe labyrinthe;
 	private AfficherLabyrinthe affichage;
 	private Coordonnee debut;
@@ -34,12 +36,15 @@ public class Main extends BasicGameState {
 		cheminSet = labyrinthe.trouverChemin(debut, fin).getCoordonnees();
 		affichage = new AfficherLabyrinthe(labyrinthe,200);
 		deplacement = Direction.NULLE;
+		cat = new Image("sprite/CatSprits/CatSpritsDown.png");
 	}
 
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
 		affichage.afficherLabyrinthe(gc, g);
 		affichage.afficherChemin(cheminSet, gc, g);
+		cat.draw(gc.getWidth()/2,gc.getHeight()/2,TAILLECASE,TAILLECASE);
+		 
 	}
 
 	@Override

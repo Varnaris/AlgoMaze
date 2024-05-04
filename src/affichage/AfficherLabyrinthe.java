@@ -2,13 +2,12 @@ package affichage;
 import algorithme.*;
 import utils.Coordonnee;
 import utils.Direction;
-
+import jeu.Main;
 import org.newdawn.slick.*;
 import java.util.Set;
 
 public class AfficherLabyrinthe {
 	private Labyrinthe labyrinthe;
-	private final int tailleCase = 60;
 	private Coordonnee coordLabyrinthe;
 	private Coordonnee coordCentreImage;
 	private Direction deplacement;
@@ -18,7 +17,7 @@ public class AfficherLabyrinthe {
 	public AfficherLabyrinthe(Labyrinthe labyrinthe, int tempsDeplacementMax) {
         this.labyrinthe = labyrinthe;
         coordLabyrinthe = labyrinthe.getDebut();
-        coordCentreImage = coordLabyrinthe.mul(tailleCase);
+        coordCentreImage = coordLabyrinthe.mul(Main.TAILLECASE);
         deplacement = Direction.NULLE;
         this.tempsDeplacementMax = tempsDeplacementMax;
     }
@@ -28,15 +27,16 @@ public class AfficherLabyrinthe {
 		deplacement = d;
 	}
 	
+	
 	public void updateTempsDeplacement(int tempsDeplacement) {
 		this.tempsDeplacement = tempsDeplacement;
 		updateDeplacement();
 	}
 	
 	public void afficherLabyrinthe(GameContainer gc, Graphics g) {
-		int x = coordLabyrinthe.getX() - (gc.getWidth() / tailleCase) / 2 - 1;
-		int y = coordLabyrinthe.getY() - (gc.getHeight() / tailleCase) / 2 - 1;
-		int largeur = gc.getWidth() / tailleCase + 2;
+		int x = coordLabyrinthe.getX() - (gc.getWidth() / Main.TAILLECASE) / 2 - 1;
+		int y = coordLabyrinthe.getY() - (gc.getHeight() / Main.TAILLECASE) / 2 - 1;
+		int largeur = gc.getWidth() / Main.TAILLECASE + 2;
 		//Direction correctionMilieu = new Direction(coordLabyrinthe.mul(tailleCase), coordCentreImage);
 		
 		g.setColor(Color.white);
@@ -50,9 +50,9 @@ public class AfficherLabyrinthe {
 					} else {
 						g.setColor(Color.black);
 					}
-					g.fillRect(coord.getX() * tailleCase - coordCentreImage.getX() + gc.getWidth() / 2,
-							coord.getY() * tailleCase - coordCentreImage.getY() + gc.getHeight() / 2, tailleCase,
-							tailleCase);
+					g.fillRect(coord.getX() * Main.TAILLECASE - coordCentreImage.getX() + gc.getWidth() / 2,
+							coord.getY() * Main.TAILLECASE - coordCentreImage.getY() + gc.getHeight() / 2, Main.TAILLECASE,
+							Main.TAILLECASE);
 				}
 			}
 		}
@@ -60,7 +60,7 @@ public class AfficherLabyrinthe {
 
 	private void updateDeplacement() {
 		float f = tempsDeplacement / tempsDeplacementMax;
-		coordCentreImage = coordCentreImage.addMod(deplacement.mul(tailleCase * f));
+		coordCentreImage = coordCentreImage.addMod(deplacement.mul(Main.TAILLECASE * f));
 		if (tempsDeplacement >= tempsDeplacementMax) {
 			tempsDeplacement = 0;
 			deplacement = Direction.NULLE;
@@ -70,9 +70,9 @@ public class AfficherLabyrinthe {
 	public void afficherChemin(Set<Coordonnee> cheminSet, GameContainer gc, Graphics g) {
 		g.setColor(Color.green);
 		for (Coordonnee coord : cheminSet) {
-			g.fillRect(coord.getX() * tailleCase - coordCentreImage.getX() + gc.getWidth() / 2,
-					coord.getY() * tailleCase - coordCentreImage.getY() + gc.getHeight() / 2, tailleCase,
-					tailleCase);
+			g.fillRect(coord.getX() * Main.TAILLECASE - coordCentreImage.getX() + gc.getWidth() / 2,
+					coord.getY() * Main.TAILLECASE - coordCentreImage.getY() + gc.getHeight() / 2, Main.TAILLECASE,
+					Main.TAILLECASE);
 		}
     }
 	/*
