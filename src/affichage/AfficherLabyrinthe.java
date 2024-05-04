@@ -57,7 +57,8 @@ public class AfficherLabyrinthe {
 	}
 
 	private void updateDeplacement() {
-		coordCentreImage = coordCentreImage.addMod(deplacement.mul(TAILLE_CASE * tempsDeplacement / tempsDeplacementMax));
+		float f = tempsDeplacement / tempsDeplacementMax;
+		coordCentreImage = coordCentreImage.addMod(deplacement.mul(TAILLE_CASE * f));
 		if (tempsDeplacement >= tempsDeplacementMax) {
 			tempsDeplacement = 0;
 			deplacement = Direction.NULLE;

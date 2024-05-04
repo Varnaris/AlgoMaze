@@ -26,6 +26,10 @@ public class Direction extends Coordonnee {
 		return new Direction(this.getX() * n, this.getY() * n);
 	}
 	
+	public Direction mul(float n) {
+		return new Direction( (int) (this.getX() * n), (int) (this.getY() * n));
+	}
+	
 	public Direction add(Direction c) {
 		return new Direction(this.getX() + c.getX(), this.getY() + c.getY());
 	}
