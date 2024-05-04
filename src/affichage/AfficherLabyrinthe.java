@@ -1,9 +1,7 @@
 package affichage;
 import algorithme.*;
 
-import org.lwjgl.opengl.Display;
 import org.newdawn.slick.*;
-import org.newdawn.slick.state.*;
 import java.util.Set;
 
 public class AfficherLabyrinthe {
@@ -12,44 +10,69 @@ public class AfficherLabyrinthe {
 	private Coordonnee coordLabyrinthe;
 	private Coordonnee coordCentreImage;
 	private Direction deplacement;
+	private int tempsDeplacement = 0;
+	private int tempsDeplacementMax;
 	
-	public AfficherLabyrinthe(Labyrinthe labyrinthe) {
+	public AfficherLabyrinthe(Labyrinthe labyrinthe, int tempsDeplacementMax) {
         this.labyrinthe = labyrinthe;
         coordLabyrinthe = labyrinthe.getDebut();
         coordCentreImage = coordLabyrinthe.mul(TAILLE_CASE);
         deplacement = Direction.NULLE;
+        this.tempsDeplacementMax = tempsDeplacementMax;
     }
 	
-	public void setDeplacement(Direction d) {
+	public void faireDeplacement(Direction d) {
 		coordLabyrinthe = coordLabyrinthe.addMod(d);
+		deplacement = d;
+	}
+	
+	public void updateTempsDeplacement(int tempsDeplacement) {
+		this.tempsDeplacement = tempsDeplacement;
+		updateDeplacement();
 	}
 	
 	public void afficherLabyrinthe(GameContainer gc, Graphics g) {
-		int x = coordLabyrinthe.getX() - (gc.getWidth() / TAILLE_CASE) / 2;
-		int y = coordLabyrinthe.getY() - (gc.getHeight() / TAILLE_CASE) / 2;
-		for (int i = 0; i < gc.getWidth() / TAILLE_CASE; i++) {
-			for (int j = 0; j < gc.getHeight() / TAILLE_CASE; j++) {
-				Coordonnee c = new Coordonnee(x + i, y + j);
-				if (labyrinthe.estValide(c) && labyrinthe.estNoir(c)) {
-					g.setColor(Color.black);
-				} else {
-					g.setColor(Color.white);
+		int x = coordLabyrinthe.getX() - (gc.getWidth() / TAILLE_CASE) / 2 - 1;
+		int y = coordLabyrinthe.getY() - (gc.getHeight() / TAILLE_CASE) / 2 - 1;
+		int largeur = gc.getWidth() / TAILLE_CASE + 2;
+		Direction correctionMilieu = new Direction(coordLabyrinthe.mul(TAILLE_CASE), coordCentreImage);
+		
+		g.setColor(Color.white);
+		g.fillRect(0, 0, gc.getWidth(), gc.getHeight());
+		for (int i = 0; i < largeur; i++) {
+			for (int j = 0; j < largeur; j++) {
+				Coordonnee coord = new Coordonnee(x + i, y + j);
+				if (labyrinthe.estValide(coord)) {
+					if (!labyrinthe.estNoir(coord)) {
+						g.setColor(Color.white);
+					} else {
+						g.setColor(Color.black);
+					}
+					g.fillRect(coord.getX() * TAILLE_CASE - coordCentreImage.getX() + gc.getWidth() / 2,
+							coord.getY() * TAILLE_CASE - coordCentreImage.getY() + gc.getHeight() / 2, TAILLE_CASE,
+							TAILLE_CASE);
 				}
-				g.fillRect(i * TAILLE_CASE , j * TAILLE_CASE, TAILLE_CASE, TAILLE_CASE);
 			}
+		}
+	}
+
+	private void updateDeplacement() {
+		coordCentreImage = coordCentreImage.addMod(deplacement.mul(TAILLE_CASE * tempsDeplacement / tempsDeplacementMax));
+		if (tempsDeplacement >= tempsDeplacementMax) {
+			tempsDeplacement = 0;
+			deplacement = Direction.NULLE;
 		}
 	}
 	
 	public void afficherChemin(Set<Coordonnee> cheminSet, GameContainer gc, Graphics g) {
-        for (Coordonnee c : cheminSet) {
-            g.setColor(Color.green);
-			g.fillRect((c.getX() - coordLabyrinthe.getX() + gc.getWidth() / TAILLE_CASE / 2) * TAILLE_CASE,
-					(c.getY() - coordLabyrinthe.getY() + gc.getHeight() / TAILLE_CASE / 2) * TAILLE_CASE, TAILLE_CASE,
+		g.setColor(Color.green);
+		for (Coordonnee coord : cheminSet) {
+			g.fillRect(coord.getX() * TAILLE_CASE - coordCentreImage.getX() + gc.getWidth() / 2,
+					coord.getY() * TAILLE_CASE - coordCentreImage.getY() + gc.getHeight() / 2, TAILLE_CASE,
 					TAILLE_CASE);
-        }
-        
+		}
     }
-	
+	/*
 	//main method
 	public static void main(String[] args) {
 		try {
@@ -79,7 +102,7 @@ public class AfficherLabyrinthe {
 							afficherLabyrinthe.afficherChemin(cheminSet, gc, g);
 							deplacement = deplacement.add(Direction.DROITE);
 							System.out.println(deplacement);
-							afficherLabyrinthe.setDeplacement(deplacement);
+							afficherLabyrinthe.faireDeplacement(deplacement);
 							
 						}
 
@@ -105,5 +128,5 @@ public class AfficherLabyrinthe {
 		} catch (SlickException ex) {
 			ex.printStackTrace();
 		}
-	}
+	}*/
 }

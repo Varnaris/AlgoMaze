@@ -15,7 +15,8 @@ public class Main extends BasicGameState {
 	private Coordonnee fin;
 	private Set<Coordonnee> cheminSet;
 	private Direction deplacement;
-
+	private boolean deplacementEnCours = false;
+	private int tempsDeplacement = 0;
 	public Main(int state) {
 	}
 
@@ -25,20 +26,31 @@ public class Main extends BasicGameState {
 		debut = labyrinthe.getDebut();
 		fin = labyrinthe.getFin();
 		cheminSet = labyrinthe.trouverChemin(debut, fin).getCoordonnees();
-		affichage = new AfficherLabyrinthe(labyrinthe);
+		affichage = new AfficherLabyrinthe(labyrinthe,200);
 		deplacement = Direction.NULLE;
 	}
 
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
-		affichage.setDeplacement(deplacement);
 		affichage.afficherLabyrinthe(gc, g);
 		affichage.afficherChemin(cheminSet, gc, g);
 	}
 
 	@Override
 	public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
-		affichage.setDeplacement(deplacement.mul(delta / 10));
+		if (deplacementEnCours) {
+			tempsDeplacement += delta;
+			affichage.updateTempsDeplacement(tempsDeplacement);
+			if (tempsDeplacement >= 200) {
+				deplacementEnCours = false;
+				tempsDeplacement = 0;
+			}
+		} else {
+			if (!deplacement.equals(Direction.NULLE)) {
+				deplacementEnCours = true;
+				affichage.faireDeplacement(deplacement);
+			}
+		}
 	}
 
 	@Override
@@ -69,6 +81,7 @@ public class Main extends BasicGameState {
 			deplacement = Direction.DROITE;
 			break;
 		default:
+			deplacementEnCours = false;
 			deplacement = Direction.NULLE;
 			break;
 		}
