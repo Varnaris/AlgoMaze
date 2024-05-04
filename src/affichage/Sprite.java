@@ -1,13 +1,13 @@
 package affichage;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
-
 import utils.Direction;
 
 public class Sprite {
 	private String nom;
 	private int nbSprite;
 	private int cycle;
+	public int itCat = 0;
 	
 	private Image[] spritesHaut;
 	private Image[] spritesBas;
@@ -40,15 +40,15 @@ public class Sprite {
 		}
 	}
 	
-	public Image getSprite(Direction d, int i) {
-		int n = (i % cycle) * nbSprite / cycle;
+	public Image getSprite(Direction d) {
+		int n = (itCat % cycle) * nbSprite / cycle;
 		if (d.equals(Direction.HAUT)) {
 			return spritesHaut[n];
         } else if (d.equals(Direction.BAS)) {
 			return spritesBas[n];
-		} else if (d.equals(Direction.GAUCHE)) {
+		} else if (d.getX()==-1) {
 			return spritesGauche[n];
-		} else if (d.equals(Direction.DROITE)) {
+		} else if (d.getX()==1) {
 			return spritesDroite[n];
 		} else {
 			return spritesBas[0];

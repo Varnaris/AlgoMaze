@@ -16,7 +16,8 @@ public class Main extends BasicGameState {
 	public static final Random RANDOM = new Random();
 	public static final int LARGEURMAX = 201;
 	
-	private Image cat = null; 
+	private Image catNow = null;
+	private Sprite cat = null; 
 	private Labyrinthe labyrinthe;
 	private AfficherLabyrinthe affichage;
 	private Coordonnee debut;
@@ -36,15 +37,16 @@ public class Main extends BasicGameState {
 		cheminSet = labyrinthe.trouverChemin(debut, fin).getCoordonnees();
 		affichage = new AfficherLabyrinthe(labyrinthe,200);
 		deplacement = Direction.NULLE;
-		cat = new Image("sprite/CatSprits/CatSpritsDown.png");
+		cat = new Sprite("CatSprits", 4, 50);
+		catNow = cat.getSprite(deplacement);
+		
 	}
 
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
 		affichage.afficherLabyrinthe(gc, g);
 		affichage.afficherChemin(cheminSet, gc, g);
-		cat.draw(gc.getWidth()/2,gc.getHeight()/2,TAILLECASE,TAILLECASE);
-		 
+		catNow.draw(gc.getWidth()/2, gc.getHeight()/2, TAILLECASE, TAILLECASE);
 	}
 
 	@Override
@@ -66,15 +68,23 @@ public class Main extends BasicGameState {
 		Input input = gc.getInput();
 		if (input.isKeyDown(Input.KEY_S) || input.isKeyDown(Input.KEY_DOWN)) {
 			deplacement = deplacement.add(Direction.BAS);
+			cat.itCat++;
+			catNow = cat.getSprite(deplacement);
 		}
 		if (input.isKeyDown(Input.KEY_Z) || input.isKeyDown(Input.KEY_UP)) {
 			deplacement = deplacement.add(Direction.HAUT);
+			cat.itCat++;
+			catNow = cat.getSprite(deplacement);
 		}
 		if (input.isKeyDown(Input.KEY_Q) || input.isKeyDown(Input.KEY_LEFT)) {
 			deplacement = deplacement.add(Direction.GAUCHE);
+			cat.itCat++;
+			catNow = cat.getSprite(deplacement);
 		}
 		if (input.isKeyDown(Input.KEY_D) || input.isKeyDown(Input.KEY_RIGHT)) {
 			deplacement = deplacement.add(Direction.DROITE);
+			cat.itCat++;
+			catNow = cat.getSprite(deplacement);
 		}
 	}
 
