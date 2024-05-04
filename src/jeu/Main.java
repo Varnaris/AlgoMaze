@@ -12,9 +12,11 @@ import org.newdawn.slick.*;
 import org.newdawn.slick.state.*;
 
 public class Main extends BasicGameState {
+	public static final int TAILLECASE = 60;
 	public static final Random RANDOM = new Random();
 	public static final int LARGEURMAX = 201;
 	
+	private Image cat = null; 
 	private Labyrinthe labyrinthe;
 	private AfficherLabyrinthe affichage;
 	private Coordonnee debut;
@@ -34,12 +36,15 @@ public class Main extends BasicGameState {
 		cheminSet = labyrinthe.trouverChemin(debut, fin).getCoordonnees();
 		affichage = new AfficherLabyrinthe(labyrinthe,200);
 		deplacement = Direction.NULLE;
+		cat = new Image("sprite/CatSprits/CatSpritsDown.png");
 	}
 
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
 		affichage.afficherLabyrinthe(gc, g);
 		affichage.afficherChemin(cheminSet, gc, g);
+		cat.draw(gc.getWidth()/2,gc.getHeight()/2,TAILLECASE,TAILLECASE);
+		 
 	}
 
 	@Override
@@ -57,45 +62,20 @@ public class Main extends BasicGameState {
 				affichage.faireDeplacement(deplacement);
 			}
 		}
-	}
-
-	@Override
-	public void keyPressed(int key, char c) {
-		switch (key) {
-		case Input.KEY_UP:
-			deplacement = Direction.HAUT;
-			break;
-		case Input.KEY_DOWN:
-			deplacement = Direction.BAS;
-			break;
-		case Input.KEY_LEFT:
-			deplacement = Direction.GAUCHE;
-			break;
-		case Input.KEY_RIGHT:
-			deplacement = Direction.DROITE;
-			break;
-		case Input.KEY_Z:
-			deplacement = Direction.HAUT;
-			break;
-		case Input.KEY_S:
-			deplacement = Direction.BAS;
-			break;
-		case Input.KEY_Q:
-			deplacement = Direction.GAUCHE;
-			break;
-		case Input.KEY_D:
-			deplacement = Direction.DROITE;
-			break;
-		default:
-			deplacementEnCours = false;
-			deplacement = Direction.NULLE;
-			break;
-		}
-	}
-
-	@Override
-	public void keyReleased(int key, char c) {
 		deplacement = Direction.NULLE;
+		Input input = gc.getInput();
+		if (input.isKeyDown(Input.KEY_S) || input.isKeyDown(Input.KEY_DOWN)) {
+			deplacement = deplacement.add(Direction.BAS);
+		}
+		if (input.isKeyDown(Input.KEY_Z) || input.isKeyDown(Input.KEY_UP)) {
+			deplacement = deplacement.add(Direction.HAUT);
+		}
+		if (input.isKeyDown(Input.KEY_Q) || input.isKeyDown(Input.KEY_LEFT)) {
+			deplacement = deplacement.add(Direction.GAUCHE);
+		}
+		if (input.isKeyDown(Input.KEY_D) || input.isKeyDown(Input.KEY_RIGHT)) {
+			deplacement = deplacement.add(Direction.DROITE);
+		}
 	}
 
 	@Override
