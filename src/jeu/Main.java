@@ -57,45 +57,20 @@ public class Main extends BasicGameState {
 				affichage.faireDeplacement(deplacement);
 			}
 		}
-	}
-
-	@Override
-	public void keyPressed(int key, char c) {
-		switch (key) {
-		case Input.KEY_UP:
-			deplacement = Direction.HAUT;
-			break;
-		case Input.KEY_DOWN:
-			deplacement = Direction.BAS;
-			break;
-		case Input.KEY_LEFT:
-			deplacement = Direction.GAUCHE;
-			break;
-		case Input.KEY_RIGHT:
-			deplacement = Direction.DROITE;
-			break;
-		case Input.KEY_Z:
-			deplacement = Direction.HAUT;
-			break;
-		case Input.KEY_S:
-			deplacement = Direction.BAS;
-			break;
-		case Input.KEY_Q:
-			deplacement = Direction.GAUCHE;
-			break;
-		case Input.KEY_D:
-			deplacement = Direction.DROITE;
-			break;
-		default:
-			deplacementEnCours = false;
-			deplacement = Direction.NULLE;
-			break;
-		}
-	}
-
-	@Override
-	public void keyReleased(int key, char c) {
 		deplacement = Direction.NULLE;
+		Input input = gc.getInput();
+		if (input.isKeyDown(Input.KEY_S)) {
+			deplacement = deplacement.add(Direction.BAS);
+		}
+		if (input.isKeyDown(Input.KEY_Z)) {
+			deplacement = deplacement.add(Direction.HAUT);
+		}
+		if (input.isKeyDown(Input.KEY_Q)) {
+			deplacement = deplacement.add(Direction.GAUCHE);
+		}
+		if (input.isKeyDown(Input.KEY_D)) {
+			deplacement = deplacement.add(Direction.DROITE);
+		}
 	}
 
 	@Override
