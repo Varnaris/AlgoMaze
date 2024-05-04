@@ -11,7 +11,6 @@ public class AfficherLabyrinthe {
 	private Coordonnee coordLabyrinthe;
 	private Coordonnee coordCentreImage;
 	private Direction deplacement;
-	private int tempsDeplacement = 0;
 	private int tempsDeplacementMax;
 	
 	public AfficherLabyrinthe(Labyrinthe labyrinthe, int tempsDeplacementMax) {
@@ -22,22 +21,27 @@ public class AfficherLabyrinthe {
         this.tempsDeplacementMax = tempsDeplacementMax;
     }
 	
+	public boolean estDeplacementValide(Direction d) {
+		Coordonnee coord = coordLabyrinthe.addMod(d);
+		return labyrinthe.estValide(coord) && !labyrinthe.estNoir(coord);
+	}
+	
 	public void faireDeplacement(Direction d) {
-		coordLabyrinthe = coordLabyrinthe.addMod(d);
+		coordLabyrinthe = coordLabyrinthe.addMod(deplacement);
+		coordCentreImage = coordLabyrinthe.mul(Main.TAILLECASE);
 		deplacement = d;
 	}
 	
-	
-	public void updateTempsDeplacement(int tempsDeplacement) {
-		this.tempsDeplacement = tempsDeplacement;
-		updateDeplacement();
+	public void updateTempsDeplacement(int delta) {
+		float f = (float) delta / tempsDeplacementMax;
+		Direction d = deplacement.mul(Main.TAILLECASE * f);
+		coordCentreImage = coordCentreImage.addMod(d);
 	}
 	
 	public void afficherLabyrinthe(GameContainer gc, Graphics g) {
 		int x = coordLabyrinthe.getX() - (gc.getWidth() / Main.TAILLECASE) / 2 - 1;
 		int y = coordLabyrinthe.getY() - (gc.getHeight() / Main.TAILLECASE) / 2 - 1;
 		int largeur = gc.getWidth() / Main.TAILLECASE + 2;
-		//Direction correctionMilieu = new Direction(coordLabyrinthe.mul(tailleCase), coordCentreImage);
 		
 		g.setColor(Color.white);
 		g.fillRect(0, 0, gc.getWidth(), gc.getHeight());
@@ -55,15 +59,6 @@ public class AfficherLabyrinthe {
 							Main.TAILLECASE);
 				}
 			}
-		}
-	}
-
-	private void updateDeplacement() {
-		float f = tempsDeplacement / tempsDeplacementMax;
-		coordCentreImage = coordCentreImage.addMod(deplacement.mul(Main.TAILLECASE * f));
-		if (tempsDeplacement >= tempsDeplacementMax) {
-			tempsDeplacement = 0;
-			deplacement = Direction.NULLE;
 		}
 	}
 	

@@ -1,12 +1,10 @@
 package jeu;
 import algorithme.*;
-import utils.Coordonnee;
-import utils.Direction;
+import utils.*;
 import affichage.*;
 
 import java.util.Random;
 import java.util.Set;
-
 import org.lwjgl.opengl.Display;
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.*;
@@ -16,16 +14,11 @@ public class Main extends BasicGameState {
 	public static final Random RANDOM = new Random();
 	public static final int LARGEURMAX = 201;
 	
-	private Image catNow = null;
-	private Sprite cat = null; 
 	private Labyrinthe labyrinthe;
 	private AfficherLabyrinthe affichage;
 	private Coordonnee debut;
 	private Coordonnee fin;
-	private Set<Coordonnee> cheminSet;
-	private Direction deplacement;
-	private boolean deplacementEnCours = false;
-	private int tempsDeplacement = 0;
+	
 	public Main(int state) {
 	}
 
@@ -34,57 +27,41 @@ public class Main extends BasicGameState {
 		labyrinthe = new Labyrinthe(31);
 		debut = labyrinthe.getDebut();
 		fin = labyrinthe.getFin();
-		cheminSet = labyrinthe.trouverChemin(debut, fin).getCoordonnees();
-		affichage = new AfficherLabyrinthe(labyrinthe,200);
-		deplacement = Direction.NULLE;
-		cat = new Sprite("CatSprits", 4, 50);
-		catNow = cat.getSprite(deplacement);
+		affichage = new AfficherLabyrinthe(labyrinthe,150);
+		Set<Coordonnee> cheminSet = labyrinthe.trouverChemin(debut, fin).getCoordonnees();
+		cheminSet = Utils.getRandomSubset(cheminSet, 0.5f);
+		affichage.setCheminSet(cheminSet);
 		
 	}
 
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
 		affichage.afficherLabyrinthe(gc, g);
-		affichage.afficherChemin(cheminSet, gc, g);
-		catNow.draw(gc.getWidth()/2, gc.getHeight()/2, TAILLECASE, TAILLECASE);
 	}
 
 	@Override
 	public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
-		if (deplacementEnCours) {
-			tempsDeplacement += delta;
-			affichage.updateTempsDeplacement(tempsDeplacement);
-			if (tempsDeplacement >= 200) {
-				deplacementEnCours = false;
-				tempsDeplacement = 0;
-			}
-		} else {
-			if (!deplacement.equals(Direction.NULLE)) {
-				deplacementEnCours = true;
-				affichage.faireDeplacement(deplacement);
-			}
-		}
-		deplacement = Direction.NULLE;
+		lireDeplacement(gc);
+		affichage.updateLabyrinthe(delta);
+	}
+
+	private void lireDeplacement(GameContainer gc) {
+		Direction d = Direction.NULLE;
 		Input input = gc.getInput();
 		if (input.isKeyDown(Input.KEY_S) || input.isKeyDown(Input.KEY_DOWN)) {
-			deplacement = deplacement.add(Direction.BAS);
-			cat.itCat++;
-			catNow = cat.getSprite(deplacement);
+			d = d.add(Direction.BAS);
 		}
 		if (input.isKeyDown(Input.KEY_Z) || input.isKeyDown(Input.KEY_UP)) {
-			deplacement = deplacement.add(Direction.HAUT);
-			cat.itCat++;
-			catNow = cat.getSprite(deplacement);
+			d = d.add(Direction.HAUT);
 		}
 		if (input.isKeyDown(Input.KEY_Q) || input.isKeyDown(Input.KEY_LEFT)) {
-			deplacement = deplacement.add(Direction.GAUCHE);
-			cat.itCat++;
-			catNow = cat.getSprite(deplacement);
+			d = d.add(Direction.GAUCHE);
 		}
 		if (input.isKeyDown(Input.KEY_D) || input.isKeyDown(Input.KEY_RIGHT)) {
-			deplacement = deplacement.add(Direction.DROITE);
-			cat.itCat++;
-			catNow = cat.getSprite(deplacement);
+			d = d.add(Direction.DROITE);
+		}
+		if (affichage.estDeplacementNul() && !d.equals(Direction.NULLE)) {
+			affichage.faireDeplacement(d);
 		}
 	}
 
