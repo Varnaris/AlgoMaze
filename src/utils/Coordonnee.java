@@ -1,4 +1,6 @@
-package algorithme;
+package utils;
+
+import jeu.Main;
 
 public class Coordonnee {
 	private int x;
@@ -39,7 +41,7 @@ public class Coordonnee {
 	
 	@Override
 	public int hashCode() {
-		return this.x * Labyrinthe.getLargeur() + this.y;
+		return this.x * Main.LARGEURMAX + this.y;
 	}
 	
 	@Override

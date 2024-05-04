@@ -1,8 +1,8 @@
 package affichage;
-import algorithme.Direction;
-
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
+
+import utils.Direction;
 
 public class Sprite {
 	private String nom;

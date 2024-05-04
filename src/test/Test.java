@@ -2,10 +2,11 @@ package test;
 import java.util.ArrayList;
 import java.util.List;
 import algorithme.*;
+import utils.Coordonnee;
 
 public class Test {
 	public static void main(String[] args) {
-		Labyrinthe l = new Labyrinthe();
+		Labyrinthe l = new Labyrinthe(21);
 		Coordonnee debut = l.getDebut();
 		Coordonnee fin = l.getFin();
 		Chemin chemin = l.trouverChemin(debut, fin);
@@ -15,7 +16,7 @@ public class Test {
 			cheminSet.add(chemin.next());
 		}
 		System.out.println(cheminSet);
-		System.out.println(Labyrinthe.getLargeur());
+		System.out.println(l.getLargeur());
 		for (Iterable<Coordonnee> i : l) {
 			for (Coordonnee c : i) {
 				if (cheminSet.contains(c)) {

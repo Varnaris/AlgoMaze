@@ -1,11 +1,15 @@
 package algorithme;
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 
 import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Set;
+
+import jeu.Main;
+import utils.Coordonnee;
+import utils.Direction;
+import utils.Utils;
 
 public class SommetGraphe implements Comparable<SommetGraphe>, Iterable<SommetGraphe>{
 	private Coordonnee coordonnee;
@@ -81,7 +85,7 @@ public class SommetGraphe implements Comparable<SommetGraphe>, Iterable<SommetGr
 	}
 	
 	private SommetGraphe choisirSuccesseur(Set<Coordonnee> sommetsIsoles, Direction... d) {
-		List<Coordonnee> out = new ArrayList<>();
+		Set<Coordonnee> out = new HashSet<>();
 		for (Direction dir : d) {
 			Coordonnee c = this.coordonnee.addMod(dir);
 			if (sommetsIsoles.contains(c)) {
@@ -91,10 +95,10 @@ public class SommetGraphe implements Comparable<SommetGraphe>, Iterable<SommetGr
 		if (out.isEmpty()) {
 			return null;
 		}
-		return new SommetGraphe(out.get(Labyrinthe.RANDOM.nextInt(out.size())), this);
+		return new SommetGraphe(Utils.getRandomFromSet(out), this);
 	}
 	
-	public SommetGraphe choisirSuccesseur(Set<Coordonnee> sommetsIsoles) {
+	public SommetGraphe choisirSuccesseur(Set<Coordonnee> sommetsIsoles, float coeff2) {
 		if (predecesseur == null) {
 			return choisirSuccesseur(sommetsIsoles, Direction.DIRECTIONS2);
 		}
@@ -102,8 +106,7 @@ public class SommetGraphe implements Comparable<SommetGraphe>, Iterable<SommetGr
 		Direction[] lateraux = droit.dirTengeantes();
 		SommetGraphe out1 = choisirSuccesseur(sommetsIsoles, droit);
 		SommetGraphe out2 = choisirSuccesseur(sommetsIsoles, lateraux);
-		Float coeff2 = Labyrinthe.getCoeff2();
-		if (coeff2 == 1.0 || (coeff2 != 0.0 && Labyrinthe.RANDOM.nextFloat() < coeff2)) {
+		if (coeff2 == 1.0 || (coeff2 != 0.0 && Main.RANDOM.nextFloat() < coeff2)) {
             return out1 != null ? out1 : out2;
         }
         return out2 != null ? out2 : out1;

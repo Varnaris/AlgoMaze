@@ -5,27 +5,35 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Random;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.Map;
 import java.util.HashMap;
+import jeu.Main;
+import utils.Coordonnee;
+import utils.Direction;
+import utils.Utils;
 
 public class Labyrinthe implements Iterable<Iterable<Coordonnee>>{
-    public static final Random RANDOM = new Random();
-    private static float COEFF1 = 0.9f;
-    private static float COEFF2 = 0.0f;
-    private static float COEFF3 = 0.1f;
-    private static int TAILLE = 11;
-    private static int LARGEUR = TAILLE * 2 + 1;
+    private float coeff1;
+    private float coeff2;
+    private float coeff3;
+    
+    private int taille;
+    private int largeur;
     
     private Map<Coordonnee, SommetGraphe> graphe;
-    private Set<Coordonnee> labyrinthe;
+    private Set<Coordonnee> casesBlanchesLabyrinthe;
 	private Set<Coordonnee> feuilles;
     
-	public Labyrinthe() {
+	public Labyrinthe(int taille, float... coeffs) {
+		this.taille = taille;
+		this.coeff1 = (coeffs.length > 0 ? coeffs[0] : 0.5f);
+		this.coeff2 = (coeffs.length > 1 ? coeffs[1] : 0.5f);
+		this.coeff3 = (coeffs.length > 2 ? coeffs[2] : 2.0f);
+		this.largeur = taille * 2 + 1;
 		graphe = new HashMap<>();
-		labyrinthe = initSommetIsolees();
+		casesBlanchesLabyrinthe = initSommetIsolees();
 		Set<Coordonnee> sommetsIsoles = initSommetIsolees();
 		Coordonnee debut = initDebutFin();
 		
@@ -34,26 +42,43 @@ public class Labyrinthe implements Iterable<Iterable<Coordonnee>>{
 		sommetsIsoles.remove(debut);
 		ajouterSommetGraphe(racine);
 		while (!sommetsIsoles.isEmpty()) {
-			SommetGraphe sommet = composante.etendreGraphe(sommetsIsoles);
+			SommetGraphe sommet = composante.etendreGraphe(sommetsIsoles, coeff1, coeff2);
 			ajouterSommetGraphe(sommet);
 			sommetsIsoles.remove(sommet.getCoordonnee());
-			labyrinthe.add(new Coordonnee(sommet.getCoordonnee(), sommet.getPredecesseur().getCoordonnee()));
+			casesBlanchesLabyrinthe.add(new Coordonnee(sommet.getCoordonnee(), sommet.getPredecesseur().getCoordonnee()));
 		}
 		feuilles = composante.getFeuilles();
 	}
 	
 	private Coordonnee initDebutFin() {
-		labyrinthe.add(getDebut());
-		labyrinthe.add(getFin());
-		return new Coordonnee(RANDOM.nextInt(TAILLE)*2+1, RANDOM.nextInt(TAILLE)*2+1);
+		casesBlanchesLabyrinthe.add(getDebut());
+		casesBlanchesLabyrinthe.add(getFin());
+		return new Coordonnee(Main.RANDOM.nextInt(taille)*2+1, Main.RANDOM.nextInt(taille)*2+1);
+	}
+	
+	public float getCoeff(int i) {
+		switch (i) {
+		case 1:
+			return coeff1;
+		case 2:
+			return coeff2;
+		case 3:
+			return coeff3;
+		default:
+			throw new IllegalArgumentException("Coefficient inconnu");
+		}
+	}
+	
+	public int getLargeur() {
+		return largeur;
 	}
 	
 	public Coordonnee getDebut() {
-		return new Coordonnee(0, TAILLE);
+		return new Coordonnee(0, taille);
 	}
 	
 	public Coordonnee getFin() {
-		return new Coordonnee(LARGEUR - 1, TAILLE);
+		return new Coordonnee(largeur - 1, taille);
 	}
 	
 	private void ajouterSommetGraphe(SommetGraphe sommet) {
@@ -72,34 +97,17 @@ public class Labyrinthe implements Iterable<Iterable<Coordonnee>>{
 		}
 		return sommets;
 	}
-	public static float getCoeff1() {
-		return COEFF1;
-	}
-	
-	public static float getCoeff2() {
-		return COEFF2;
-	}
-	
-	public static float getCoeff3() {
-		return COEFF3;
-	}
-	
-	public static int getLargeur() {
-		return LARGEUR;
-	}
 	
 	public boolean estValide(Coordonnee c) {
-		return c.getX() >= 0 && c.getX() < LARGEUR && c.getY() >= 0 && c.getY() < LARGEUR;
+		return c.getX() >= 0 && c.getX() < largeur && c.getY() >= 0 && c.getY() < largeur;
 	}
 	
 	public boolean estNoir(Coordonnee c) {
-		return !labyrinthe.contains(c);
+		return !casesBlanchesLabyrinthe.contains(c);
 	}
 	
 	public Coordonnee prendreFeuilleAleatoire() {
-		Coordonnee out = new ArrayList<>(feuilles).get(RANDOM.nextInt(feuilles.size()));
-		feuilles.remove(out);
-		return out;
+		return Utils.getRandomFromSet(feuilles);
 	}
 	
 	public Chemin trouverChemin(Coordonnee debut, Coordonnee fin) {
@@ -193,23 +201,23 @@ public class Labyrinthe implements Iterable<Iterable<Coordonnee>>{
             return feuilles;
 		}
 		
-		private SommetGraphe choisirSommetAleatoire() {
-			if (COEFF1 == 1.0 || (COEFF1 != 0.0 && RANDOM.nextFloat() < COEFF1)) {
+		private SommetGraphe choisirSommetAleatoire(float coeff) {
+			if (coeff == 1.0 || (coeff != 0.0 && Main.RANDOM.nextFloat() < coeff)) {
 				return sommetsEligibles.get(sommetsEligibles.size() - 1);
 			}
-			return sommetsEligibles.get(RANDOM.nextInt(sommetsEligibles.size()));
+			return sommetsEligibles.get(Main.RANDOM.nextInt(sommetsEligibles.size()));
 		}
 		
-		protected SommetGraphe etendreGraphe(Set<Coordonnee> sommetsIsoles) {
+		protected SommetGraphe etendreGraphe(Set<Coordonnee> sommetsIsoles, float coeff1, float coeff2) {
 			if (sommetsIsoles.isEmpty()) {
 				throw new IllegalArgumentException("Aucun sommet isolé disponible");
 			}
-			SommetGraphe candidatDepart = choisirSommetAleatoire();
-			SommetGraphe candidatArrivee = candidatDepart.choisirSuccesseur(sommetsIsoles);
+			SommetGraphe candidatDepart = choisirSommetAleatoire(coeff1);
+			SommetGraphe candidatArrivee = candidatDepart.choisirSuccesseur(sommetsIsoles, coeff2);
 			while (candidatArrivee == null && !sommetsEligibles.isEmpty()) {
 				sommetsEligibles.remove(candidatDepart);
-				candidatDepart = choisirSommetAleatoire();
-				candidatArrivee = candidatDepart.choisirSuccesseur(sommetsIsoles);
+				candidatDepart = choisirSommetAleatoire(coeff1);
+				candidatArrivee = candidatDepart.choisirSuccesseur(sommetsIsoles, coeff2);
 			}
 			feuilles.remove(candidatDepart);
 			if (candidatArrivee == null) {

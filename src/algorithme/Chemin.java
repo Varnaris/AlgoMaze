@@ -3,6 +3,9 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.Set;
 
+import utils.Coordonnee;
+import utils.Direction;
+
 
 public class Chemin implements Iterator<Coordonnee>{
 	private Chemin suivant;

@@ -1,7 +1,10 @@
 package jeu;
 import algorithme.*;
+import utils.Coordonnee;
+import utils.Direction;
 import affichage.*;
 
+import java.util.Random;
 import java.util.Set;
 
 import org.lwjgl.opengl.Display;
@@ -9,6 +12,9 @@ import org.newdawn.slick.*;
 import org.newdawn.slick.state.*;
 
 public class Main extends BasicGameState {
+	public static final Random RANDOM = new Random();
+	public static final int LARGEURMAX = 201;
+	
 	private Labyrinthe labyrinthe;
 	private AfficherLabyrinthe affichage;
 	private Coordonnee debut;
@@ -22,7 +28,7 @@ public class Main extends BasicGameState {
 
 	@Override
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
-		labyrinthe = new Labyrinthe();
+		labyrinthe = new Labyrinthe(31);
 		debut = labyrinthe.getDebut();
 		fin = labyrinthe.getFin();
 		cheminSet = labyrinthe.trouverChemin(debut, fin).getCoordonnees();

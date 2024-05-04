@@ -1,4 +1,4 @@
-package algorithme;
+package utils;
 
 public class Direction extends Coordonnee {
 	public static final Direction HAUT = new Direction(0, -1);
