@@ -22,6 +22,7 @@ public class Direction extends Coordonnee {
 		return new Direction(-this.getX(), -this.getY());
 	}
 	
+	@Override
 	public Direction mul(int n) {
 		return new Direction(this.getX() * n, this.getY() * n);
 	}
