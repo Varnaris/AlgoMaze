@@ -80,9 +80,9 @@ public class AfficherLabyrinthe {
 	
 	public void updateTempsDeplacement(int delta) {
 		tempsDeplacement += delta;
-		float f = (float) delta / tempsDeplacementMax;
+		float f = (float) tempsDeplacement / tempsDeplacementMax;
 		Direction d = deplacement.mul(Main.TAILLECASE * f);
-		coordCentreImage = coordCentreImage.addMod(d);
+		coordCentreImage = coordLabyrinthe.mul(Main.TAILLECASE).addMod(d);
 	}
 	
 	public void afficherLabyrinthe(GameContainer gc, Graphics g) {

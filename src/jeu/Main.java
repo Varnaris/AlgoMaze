@@ -28,7 +28,7 @@ public class Main extends BasicGameState {
 		debut = labyrinthe.getDebut();
 		fin = labyrinthe.getFin();
 		Coordonnee d = new Coordonnee(debut.getX() - gc.getWidth() / (2*TAILLECASE), debut.getY());
-		affichage = new AfficherLabyrinthe(labyrinthe,175, d);
+		affichage = new AfficherLabyrinthe(labyrinthe,150, d);
 		Set<Coordonnee> cheminSet = labyrinthe.trouverChemin(debut, fin).getCoordonnees();
 		cheminSet = Utils.getRandomSubset(cheminSet, 0.5f);
 		affichage.setCheminSet(cheminSet);
@@ -44,6 +44,10 @@ public class Main extends BasicGameState {
 	public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
 		lireDeplacement(gc);
 		affichage.updateLabyrinthe(delta);
+		updateBounds(gc, sbg);
+	}
+
+	private void updateBounds(GameContainer gc, StateBasedGame sbg) throws SlickException {
 		if (affichage.getCoordChat().getX() >= labyrinthe.getLargeur() + gc.getWidth() / (2*TAILLECASE) + 1) {
 			init(gc, sbg);
 		} else if (affichage.getCoordChat().getX() < -gc.getWidth() / (2*TAILLECASE)) {
