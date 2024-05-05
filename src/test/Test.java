@@ -21,10 +21,10 @@ public class Test {
 			for (Coordonnee c : i) {
 				if (cheminSet.contains(c)) {
                     System.out.print("🔴");
-                } else if (l.estNoir(c)) {
-					System.out.print("⬜");
-				} else {
+                } else if (l.estBlanc(c)) {
 					System.out.print("⬛");
+				} else {
+					System.out.print("⬜");
 				}
 			}
 			System.out.println();

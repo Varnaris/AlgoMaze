@@ -102,8 +102,8 @@ public class Labyrinthe implements Iterable<Iterable<Coordonnee>>{
 		return c.getX() >= 0 && c.getX() < largeur && c.getY() >= 0 && c.getY() < largeur;
 	}
 	
-	public boolean estNoir(Coordonnee c) {
-		return !casesBlanchesLabyrinthe.contains(c);
+	public boolean estBlanc(Coordonnee c) {
+		return casesBlanchesLabyrinthe.contains(c);
 	}
 	
 	public Coordonnee prendreFeuilleAleatoire() {

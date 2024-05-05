@@ -3,6 +3,7 @@ import algorithme.*;
 import utils.Coordonnee;
 import utils.Direction;
 import jeu.Main;
+
 import org.newdawn.slick.*;
 import java.util.Set;
 
@@ -19,9 +20,9 @@ public class AfficherLabyrinthe {
 	
 	private Set<Coordonnee> cheminSet;
 	
-	public AfficherLabyrinthe(Labyrinthe labyrinthe, int tempsDeplacementMax) {
+	public AfficherLabyrinthe(Labyrinthe labyrinthe, int tempsDeplacementMax, Coordonnee coordLabyrinthe) {
         this.labyrinthe = labyrinthe;
-        coordLabyrinthe = labyrinthe.getDebut();
+        this.coordLabyrinthe = coordLabyrinthe;
         coordCentreImage = coordLabyrinthe.mul(Main.TAILLECASE);
         deplacement = Direction.NULLE;
         this.tempsDeplacementMax = tempsDeplacementMax;
@@ -39,11 +40,15 @@ public class AfficherLabyrinthe {
 	
 	public boolean estDeplacementValide(Direction d) {
 		Coordonnee coord = coordLabyrinthe.addMod(d);
-		return labyrinthe.estValide(coord) && !labyrinthe.estNoir(coord);
+		return estBlanc(coord);
 	}
 	
 	public boolean estDeplacementNul() {
 		return deplacement.equals(Direction.NULLE);
+	}
+	
+	private boolean estBlanc(Coordonnee coord) {
+		return labyrinthe.estBlanc(coord) || (!labyrinthe.estValide(coord) && coord.getY() == labyrinthe.getDebut().getY());
 	}
 	
 	public void updateLabyrinthe(int delta) {
@@ -76,30 +81,29 @@ public class AfficherLabyrinthe {
 	}
 	
 	public void afficherLabyrinthe(GameContainer gc, Graphics g) {
-		int x = coordLabyrinthe.getX() - (gc.getWidth() / Main.TAILLECASE) / 2 - 1;
-		int y = coordLabyrinthe.getY() - (gc.getHeight() / Main.TAILLECASE) / 2 - 1;
+		float width = gc.getWidth();
+	    float height = gc.getHeight();
+		int x = (int) (coordLabyrinthe.getX() - (width / Main.TAILLECASE) / 2 - 1);
+		int y = (int) (coordLabyrinthe.getY() - (height / Main.TAILLECASE) / 2 - 1);
 		int largeur = gc.getWidth() / Main.TAILLECASE + 2;
-		
 		g.setColor(Color.white);
-		g.fillRect(0, 0, gc.getWidth(), gc.getHeight());
+		g.fillRect(0, 0, width, height);
 		for (int i = 0; i < largeur; i++) {
 			for (int j = 0; j < largeur; j++) {
 				Coordonnee coord = new Coordonnee(x + i, y + j);
-				if (labyrinthe.estValide(coord)) {
-					if (cheminSet.contains(coord)) {
-						g.setColor(Color.green);
-					} else if (!labyrinthe.estNoir(coord)) {
-						g.setColor(Color.white);
-					} else {
-						g.setColor(Color.black);
-					}
-					g.fillRect(coord.getX() * Main.TAILLECASE - coordCentreImage.getX() + gc.getWidth() / 2,
-							coord.getY() * Main.TAILLECASE - coordCentreImage.getY() + gc.getHeight() / 2, Main.TAILLECASE,
-							Main.TAILLECASE);
+				if (cheminSet.contains(coord)) {
+					g.setColor(Color.green);
+				} else if (estBlanc(coord)) {
+					g.setColor(Color.white);
+				} else {
+					g.setColor(Color.black);
 				}
+				g.fillRect(coord.getX() * Main.TAILLECASE - coordCentreImage.getX() + width / 2,
+						coord.getY() * Main.TAILLECASE - coordCentreImage.getY() + height / 2, Main.TAILLECASE,
+						Main.TAILLECASE);
 			}
 		}
-		imageChat.draw(gc.getWidth() / 2, gc.getHeight() / 2, Main.TAILLECASE, Main.TAILLECASE);
+		imageChat.draw(width / 2, height / 2, Main.TAILLECASE, Main.TAILLECASE);
 	}
 	
 	public void afficherChemin(Set<Coordonnee> cheminSet, GameContainer gc, Graphics g) {
