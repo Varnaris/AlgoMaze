@@ -44,13 +44,11 @@ public class Main extends BasicGameState {
 	public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
 		lireDeplacement(gc);
 		affichage.updateLabyrinthe(delta);
-		if (estFin(gc)) {
+		if (affichage.getCoordChat().getX() >= labyrinthe.getLargeur() + gc.getWidth() / (2*TAILLECASE) + 1) {
 			init(gc, sbg);
+		} else if (affichage.getCoordChat().getX() < -gc.getWidth() / (2*TAILLECASE)) {
+            affichage.setCoordChat(affichage.getCoordChat().addMod(Direction.DROITE));
 		}
-	}
-
-	boolean estFin(GameContainer gc) {
-		return affichage.getCoordChat().getX() >= labyrinthe.getLargeur() + gc.getWidth() / (2*TAILLECASE) + 1;
 	}
 
 	private void lireDeplacement(GameContainer gc) {

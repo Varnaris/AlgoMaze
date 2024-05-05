@@ -73,6 +73,11 @@ public class AfficherLabyrinthe {
 		}
 	}
 	
+	public void setCoordChat(Coordonnee coord) {
+		coordLabyrinthe = coord;
+		coordCentreImage = coord.mul(Main.TAILLECASE);
+	}
+	
 	public void updateTempsDeplacement(int delta) {
 		tempsDeplacement += delta;
 		float f = (float) delta / tempsDeplacementMax;
