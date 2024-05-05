@@ -24,10 +24,11 @@ public class Main extends BasicGameState {
 
 	@Override
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
-		labyrinthe = new Labyrinthe(31);
+		labyrinthe = new Labyrinthe(15);
 		debut = labyrinthe.getDebut();
 		fin = labyrinthe.getFin();
-		affichage = new AfficherLabyrinthe(labyrinthe,175);
+		Coordonnee d = new Coordonnee(debut.getX() - gc.getWidth() / (2*TAILLECASE), debut.getY());
+		affichage = new AfficherLabyrinthe(labyrinthe,175, d);
 		Set<Coordonnee> cheminSet = labyrinthe.trouverChemin(debut, fin).getCoordonnees();
 		cheminSet = Utils.getRandomSubset(cheminSet, 0.5f);
 		affichage.setCheminSet(cheminSet);
@@ -43,6 +44,9 @@ public class Main extends BasicGameState {
 	public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
 		lireDeplacement(gc);
 		affichage.updateLabyrinthe(delta);
+		if (affichage.getCoordChat().getX() >= labyrinthe.getLargeur() + gc.getWidth() / (2*TAILLECASE) + 1) {
+			init(gc, sbg);
+		}
 	}
 
 	private void lireDeplacement(GameContainer gc) {
@@ -80,7 +84,7 @@ public class Main extends BasicGameState {
                 }
             });
             appgc.setDisplayMode(appgc.getScreenWidth(), appgc.getScreenHeight(), false);
-			appgc.setShowFPS(false);
+			appgc.setShowFPS(true);
 			appgc.setTargetFrameRate(60);
 			appgc.setTitle("AlgoMaze");
 			Display.setResizable(true);
