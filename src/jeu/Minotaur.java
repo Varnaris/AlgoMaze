@@ -4,7 +4,6 @@ import utils.Coordonnee;
 import utils.Direction;
 import algorithme.Chemin;
 import org.newdawn.slick.*;
-import jeu.Main;
 
 import org.newdawn.slick.Image;
 
@@ -36,8 +35,9 @@ public class Minotaur {
 		position = route.next();
 	}
 	
-	private void draw(GameContainer gc) {
-		imageMino.draw(gc.getWidth() / 2 - 20,gc.getHeight() / 2 - 40, TAILLECASE + 40,TAILLECASE + 40);
+	public void draw(GameContainer gc) {
+		imageMino.draw(gc.getWidth() / 2 - 20,gc.getHeight() / 2 - 40, Main.TAILLECASE + 40,Main.TAILLECASE + 40);
+		// TODO modifier les coordonnees pour que le minotaur soit sur ses coordonnees
 	}
 	
 }
