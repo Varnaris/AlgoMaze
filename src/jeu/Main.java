@@ -18,6 +18,7 @@ public class Main extends BasicGameState {
 	private AfficherLabyrinthe affichage;
 	private Coordonnee debut;
 	private Coordonnee fin;
+	private Minotaur minotaur;
 	
 	public Main(int state) {
 	}
@@ -32,6 +33,7 @@ public class Main extends BasicGameState {
 		Set<Coordonnee> cheminSet = labyrinthe.trouverChemin(debut, fin).getCoordonnees();
 		cheminSet = Utils.getRandomSubset(cheminSet, 0.5f);
 		affichage.setCheminSet(cheminSet);
+		minotaur = new Minotaur(debut, labyrinthe.trouverChemin(debut, fin), 150);
 		
 	}
 
@@ -45,6 +47,7 @@ public class Main extends BasicGameState {
 		lireDeplacement(gc);
 		affichage.updateLabyrinthe(delta);
 		updateBounds(gc, sbg);
+		minotaur.update(delta);
 	}
 
 	private void updateBounds(GameContainer gc, StateBasedGame sbg) throws SlickException {
