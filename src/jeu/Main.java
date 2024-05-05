@@ -18,8 +18,9 @@ public class Main extends BasicGameState {
 	private AfficherLabyrinthe affichage;
 	private Coordonnee debut;
 	private Coordonnee fin;
+	private Image lumiere;
 	//private Minotaur minotaur;
-	
+
 	public Main(int state) {
 	}
 
@@ -33,6 +34,7 @@ public class Main extends BasicGameState {
 		Set<Coordonnee> cheminSet = labyrinthe.trouverChemin(debut, fin).getCoordonnees();
 		cheminSet = Utils.getRandomSubset(cheminSet, 0.5f);
 		affichage.setCheminSet(cheminSet);
+		lumiere = new Image("sprite/grotte.png");
 		//minotaur = new Minotaur(debut, labyrinthe.trouverChemin(debut, fin), 150);
 		
 	}
@@ -40,6 +42,9 @@ public class Main extends BasicGameState {
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
 		affichage.afficherLabyrinthe(gc, g);
+		
+		//lumiere.draw(TAILLECASE / 2f - lumiere.getWidth() / 2f + gc.getWidth() / 2f,
+		//		TAILLECASE / 2f - lumiere.getHeight() / 2f + gc.getHeight() / 2f); 
 	}
 
 	@Override

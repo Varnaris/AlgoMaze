@@ -1,0 +1,263 @@
+[33mcommit 7f5d9f0ccdd77b60db892f455e048a55a9c8bd92[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m
+Author: Varnaris <elouan.vuichard@gmail.com>
+Date:   Sun May 5 16:12:36 2024 +0200
+
+    fix avant la fin de la création du minotaur
+
+[33mcommit 2a8b91329357a0e942c5c2b9ffb0d8829bc7cb47[m
+Author: Varnaris <elouan.vuichard@gmail.com>
+Date:   Sun May 5 16:00:58 2024 +0200
+
+    SpriteMinautor
+
+[33mcommit bd73b8252b80cc66209f23852ed96436778ccdf5[m[33m ([m[1;31morigin/main[m[33m)[m
+Author: Hunter Game <romain.pretet@gmail.com>
+Date:   Sun May 5 15:58:30 2024 +0200
+
+    mino
+
+[33mcommit 40a0dde46b8c397a0f5e644392675d0b87ab6ed9[m
+Author: Varnaris <elouan.vuichard@gmail.com>
+Date:   Sun May 5 14:58:18 2024 +0200
+
+    fix afficherDeplacement
+
+[33mcommit 876970f640d9d81367669f11270ebb1175162b35[m
+Author: Varnaris <elouan.vuichard@gmail.com>
+Date:   Sun May 5 14:35:39 2024 +0200
+
+    Fix infinite gameloop
+
+[33mcommit 431c35118e949112f49b38fd32e235382d8028a1[m
+Author: Varnaris <elouan.vuichard@gmail.com>
+Date:   Sun May 5 13:28:52 2024 +0200
+
+    petit fix
+
+[33mcommit cbce391c2deb327fe089d5a237860df147dc6c6d[m
+Author: Varnaris <98543978+Varnaris@users.noreply.github.com>
+Date:   Sun May 5 04:00:32 2024 +0200
+
+    Update Main.java
+    
+    infinite gameloop
+
+[33mcommit de3f9e5979d19edb3417b90daa430d75ec3fe36b[m
+Author: Varnaris <elouan.vuichard@gmail.com>
+Date:   Sun May 5 03:42:31 2024 +0200
+
+    infinite game loop
+
+[33mcommit a6422020e9c0c12639b1c1aff704512ff21ffdc3[m
+Author: Varnaris <elouan.vuichard@gmail.com>
+Date:   Sun May 5 01:45:31 2024 +0200
+
+    #######rework afficherLabyrinthe
+
+[33mcommit 76d47df18496caad5af0ed45ec8395f5df33ac27[m
+Author: Varnaris <elouan.vuichard@gmail.com>
+Date:   Sun May 5 01:27:53 2024 +0200
+
+    Rework de afficherLabyrinthe
+    Centralisation d'une majeure partie de l'affiche sur
+    affichageLabyrinthe.
+    Ajout du chemin partiel (calculé en fonction d'un coeff donnée dans le
+    main)
+    
+    Ajout des collisions
+    
+    Avancement supérieur à la version python
+    
+    fix de l'animation pour qu'elle se scale correctement sur la vitesse.
+    
+    La vitesse du chat est plus facilement modifiable : une variable dans le
+    init() du main.
+
+[33mcommit 0fc8cdc3ef9610d2972716d4f5faf0d7a60ed7b6[m
+Merge: 762f486 caabd50
+Author: Varnaris <elouan.vuichard@gmail.com>
+Date:   Sun May 5 00:56:59 2024 +0200
+
+    Merge remote-tracking branch 'SSH2/main' into afficherLabyrinthe_rework
+
+[33mcommit 762f48646f7df06fc0bbd62e2436ce775e09d93d[m
+Author: Varnaris <elouan.vuichard@gmail.com>
+Date:   Sun May 5 00:51:26 2024 +0200
+
+    Centralisation d'une majeure partie de l'affiche sur
+    affichageLabyrinthe.
+    Ajout du chemin partiel (calculé en fonction d'un coeff donnée dans le
+    main)
+    
+    Ajout des collisions
+    
+    Avancement supérieur à la version python
+    
+    fix de l'animation pour qu'elle se scale correctement sur la vitesse.
+    
+    La vitesse du chat est plus facilement modifiable : une variable dans le
+    init() du main.
+
+[33mcommit caabd5087e5da2ed3a767d305c8da2d1b4575ce8[m
+Author: Hunter Game <romain.pretet@gmail.com>
+Date:   Sat May 4 19:40:03 2024 +0200
+
+    mino
+
+[33mcommit bd058e944d0d1e983ef7b6e4ae0b94fafb416a17[m
+Author: Hunter Game <romain.pretet@gmail.com>
+Date:   Sat May 4 19:35:52 2024 +0200
+
+    cat
+
+[33mcommit 1cbb0e98efedcc4344435b077c9aa5dd06d3f58c[m
+Merge: ff24d32 0894e07
+Author: 33768 <romain.pretet@gmail.com>
+Date:   Sat May 4 19:34:34 2024 +0200
+
+    Merge branch 'main' of https://github.com/Varnaris/AlgoMaze.git into main
+
+[33mcommit ff24d3220b4de515d8e7dbc5d0842cb247423511[m
+Author: Hunter Game <romain.pretet@gmail.com>
+Date:   Sat May 4 19:16:21 2024 +0200
+
+    cat
+
+[33mcommit 0894e07cdfa610e5127ee07b1b8ffb7d3eac6b63[m
+Merge: bc06ca7 92a8b17
+Author: Varnaris <elouan.vuichard@gmail.com>
+Date:   Sat May 4 18:46:26 2024 +0200
+
+    Merge branch 'main' of git@github.com:Varnaris/AlgoMaze.git into main
+
+[33mcommit 92a8b1706cfbaf8f46ec5d6b02a72b85033841ac[m
+Author: Hunter Game <romain.pretet@gmail.com>
+Date:   Sat May 4 18:38:09 2024 +0200
+
+    cat
+
+[33mcommit 46b920857547ad396ff89013a1ca61a007dc490b[m
+Author: Hunter Game <romain.pretet@gmail.com>
+Date:   Sat May 4 18:15:14 2024 +0200
+
+    deplacement
+
+[33mcommit a941454a07b4d7a02f2d6015aa08eb5b568dd0f6[m
+Author: Hunter Game <romain.pretet@gmail.com>
+Date:   Sat May 4 18:12:59 2024 +0200
+
+    deplacement
+
+[33mcommit bc06ca71d40d7fb48937aae0f08baa9cc697dfc0[m
+Author: Varnaris <elouan.vuichard@gmail.com>
+Date:   Sat May 4 18:11:19 2024 +0200
+
+    test
+
+[33mcommit 58d2ab2f4a0608a300dccf0b5764e9cb52638333[m
+Author: Varnaris <elouan.vuichard@gmail.com>
+Date:   Sat May 4 17:33:57 2024 +0200
+
+    labyrinthe fix
+
+[33mcommit 7f0546a1970d73aebedca975c0524995a10074b4[m
+Author: eloua <eloua@DESKTOP-C8GPGV2.home>
+Date:   Sat May 4 17:12:52 2024 +0200
+
+    fix labyrinthe
+
+[33mcommit 8d89336d26968bec7606bbb7b9719fc9c323050c[m
+Author: 33768 <romain.pretet@gmail.com>
+Date:   Sat May 4 15:52:09 2024 +0200
+
+    change windows
+
+[33mcommit 39869eb04611254512410ef8a0d302f392c4fcd0[m
+Author: Elouan_Vuichard <elouan.vuichard@gmail.com>
+Date:   Sat May 4 15:14:15 2024 +0200
+
+    lib
+
+[33mcommit 198ce5ad2b426820172caeaacdab0caab2db7b47[m
+Author: Elouan_Vuichard <elouan.vuichard@gmail.com>
+Date:   Sat May 4 15:02:32 2024 +0200
+
+    affichage à fix
+
+[33mcommit 34b76c95a26533ba06c08f987ede0f5981f50483[m
+Author: Elouan_Vuichard <elouan.vuichard@gmail.com>
+Date:   Thu May 2 23:45:17 2024 +0200
+
+    début déplacements
+
+[33mcommit 2e5c6eaef2f972abe906a38c7b49543566a589f0[m
+Author: Elouan_Vuichard <elouan.vuichard@gmail.com>
+Date:   Thu May 2 15:14:23 2024 +0200
+
+    PtitFix
+
+[33mcommit b1f436532ab77c90ab29e701bb9f40b8133be838[m
+Author: Elouan_Vuichard <elouan.vuichard@gmail.com>
+Date:   Thu May 2 14:26:22 2024 +0200
+
+    Chemin estLigneDroite
+
+[33mcommit 5d5082d8619810af6923fc939f004a0a0d3102de[m
+Author: Elouan_Vuichard <elouan.vuichard@gmail.com>
+Date:   Thu May 2 13:31:48 2024 +0200
+
+    trucs et tout là
+
+[33mcommit 7ed6750176050589f4e7d4c9ee741c786321e7ab[m
+Author: Elouan_Vuichard <elouan.vuichard@gmail.com>
+Date:   Wed May 1 23:32:37 2024 +0200
+
+    slick2d
+
+[33mcommit 543ba6320671ec0c8c176cc593609dd1477cae44[m
+Author: Elouan_Vuichard <elouan.vuichard@gmail.com>
+Date:   Wed May 1 18:10:11 2024 +0200
+
+    AfficherAlgo1
+
+[33mcommit 3ea6bc7ae97f5e18ff068a144c816402db83452d[m
+Author: Elouan_Vuichard <elouan.vuichard@gmail.com>
+Date:   Wed May 1 03:52:42 2024 +0200
+
+    je crois problème eclipse reglé, je vais dodo
+
+[33mcommit eb48232b0d61aedd7ed6547cd220f549e567aece[m
+Author: Elouan_Vuichard <elouan.vuichard@gmail.com>
+Date:   Tue Apr 30 15:15:39 2024 +0200
+
+    Slick2D qui marche enfin
+
+[33mcommit b60fcda911566d7b3c86f459312ec52b807ad243[m
+Author: Elouan_Vuichard <elouan.vuichard@gmail.com>
+Date:   Mon Apr 29 14:36:04 2024 +0200
+
+    librairies
+
+[33mcommit 1bbcff298eaa03aff32c9ce3fa5cb04659870a6e[m
+Author: Elouan_Vuichard <elouan.vuichard@gmail.com>
+Date:   Mon Apr 29 13:50:56 2024 +0200
+
+    PathFinding fix
+
+[33mcommit 51a3263e86fd020c2f883bdc41976f09fc51cc91[m
+Author: Elouan_Vuichard <elouan.vuichard@gmail.com>
+Date:   Mon Apr 29 12:54:32 2024 +0200
+
+    algoChemin
+
+[33mcommit 30d4d1b37e710d066a4944ccf8772d7242d8bc9d[m
+Author: Elouan_Vuichard <elouan.vuichard@gmail.com>
+Date:   Mon Apr 29 12:31:00 2024 +0200
+
+    origin
+
+[33mcommit 83b52f8872cc1c886036ead356462a1becf43210[m
+Author: Varnaris <98543978+Varnaris@users.noreply.github.com>
+Date:   Mon Apr 29 12:26:30 2024 +0200
+
+    Initial commit
