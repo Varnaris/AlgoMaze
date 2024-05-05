@@ -8,7 +8,6 @@ public class Direction extends Coordonnee {
 	public static final Direction NULLE = new Direction(0, 0);
 	
 	public static final Direction[] DIRECTIONS = {HAUT, BAS, GAUCHE, DROITE};
-	public static final Direction[] DIRECTIONS2 = {HAUT.mul(2), BAS.mul(2), GAUCHE.mul(2), DROITE.mul(2)};
 	
 	private Direction(int x, int y) {
 		super(x, y);
@@ -30,6 +29,14 @@ public class Direction extends Coordonnee {
 	public Direction mul(float n) {
 		return new Direction( (int) (this.getX() * n), (int) (this.getY() * n));
 	}
+	
+	public static Direction[] mul(int n, Direction... directions) {
+        Direction[] res = new Direction[directions.length];
+        for (int i = 0; i < directions.length; i++) {
+            res[i] = directions[i].mul(n);
+        }
+        return res;
+    }
 	
 	public Direction add(Direction c) {
 		return new Direction(this.getX() + c.getX(), this.getY() + c.getY());

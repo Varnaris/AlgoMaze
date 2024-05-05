@@ -100,7 +100,7 @@ public class SommetGraphe implements Comparable<SommetGraphe>, Iterable<SommetGr
 	
 	public SommetGraphe choisirSuccesseur(Set<Coordonnee> sommetsIsoles, float coeff2) {
 		if (predecesseur == null) {
-			return choisirSuccesseur(sommetsIsoles, Direction.DIRECTIONS2);
+			return choisirSuccesseur(sommetsIsoles, Direction.mul(2, Direction.DIRECTIONS));
 		}
 		Direction droit = new Direction(predecesseur.getCoordonnee(), coordonnee);
 		Direction[] lateraux = droit.dirTengeantes();

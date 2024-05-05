@@ -27,7 +27,7 @@ public class AfficherLabyrinthe {
         deplacement = Direction.NULLE;
         this.tempsDeplacementMax = tempsDeplacementMax;
         chat = new Sprite("CatSprits", 4, tempsDeplacementMax);
-        imageChat = chat.getSprite(Direction.NULLE, 0);
+        imageChat = chat.getSprite(Direction.DROITE, 0);
     }
 	
 	public void setCheminSet(Set<Coordonnee> cheminSet) {
