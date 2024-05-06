@@ -88,9 +88,9 @@ public class AfficherLabyrinthe {
 	public void afficherLabyrinthe(GameContainer gc, Graphics g) {
 		float width = gc.getWidth();
 	    float height = gc.getHeight();
-		int x = (int) (coordLabyrinthe.getX() - (width / Main.TAILLECASE) / 2 - 1);
-		int y = (int) (coordLabyrinthe.getY() - (height / Main.TAILLECASE) / 2 - 1);
-		int largeur = gc.getWidth() / Main.TAILLECASE + 2;
+		int x = (int) (coordLabyrinthe.getX() - (width / Main.TAILLECASE) / 2 - 2);
+		int y = (int) (coordLabyrinthe.getY() - (height / Main.TAILLECASE) / 2 - 2);
+		int largeur = gc.getWidth() / Main.TAILLECASE + 4;
 		g.setColor(Color.white);
 		g.fillRect(0, 0, width, height);
 		for (int i = 0; i < largeur; i++) {
