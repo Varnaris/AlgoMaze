@@ -42,9 +42,10 @@ public class Main extends BasicGameState {
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
 		affichage.afficherLabyrinthe(gc, g);
+		//minotaur.draw(gc);
 		
 		//lumiere.draw(TAILLECASE / 2f - lumiere.getWidth() / 2f + gc.getWidth() / 2f,
-		//	TAILLECASE / 2f - lumiere.getHeight() / 2f + gc.getHeight() / 2f); 
+			//	TAILLECASE / 2f - lumiere.getHeight() / 2f + gc.getHeight() / 2f); 
 	}
 
 	@Override

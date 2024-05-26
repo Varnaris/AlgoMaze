@@ -12,6 +12,10 @@ import affichage.Sprite;
 public class Minotaur {
 	private Coordonnee position;
 	private Chemin route;
+	public Coordonnee getPosition() {
+		return position;
+	}
+
 	private final Sprite mino;
 	private Image imageMino;
 	private int time;
@@ -21,23 +25,28 @@ public class Minotaur {
 		this.route = route;
 		mino = new Sprite("Minotaur", 4, tempsDeplacementMax);
 		imageMino = mino.getSprite(Direction.GAUCHE, 0);
+		System.out.println(position.getX() + " " + position.getY());
 	}
 	
 	public void update(int delta) {
 		time += delta;
-		if (time >= 200) {
-			time -= 200;
+		if (time >= 1000) {
+			time -= 1000;
 			nextPosition();
 		}
 	}
 	
 	private void nextPosition() {
-		position = route.next();
+		if (route.hasNext()) {
+			position = route.next();
+		}
 	}
 	
-	public void draw(GameContainer gc) {
-		imageMino.draw(gc.getWidth() / 2 - 20,gc.getHeight() / 2 - 40, Main.TAILLECASE + 40,Main.TAILLECASE + 40);
+	public void draw(float x, float y) {
+		imageMino.draw(x, y, Main.TAILLECASE, Main.TAILLECASE);
 		// TODO modifier les coordonnees pour que le minotaur soit sur ses coordonnees
 	}
-	
+	public void updateChemin(Coordonnee coordChat) {
+		route.corrigerFinChemin(coordChat);
+	}
 }

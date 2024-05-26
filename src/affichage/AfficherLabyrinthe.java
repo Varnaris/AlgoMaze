@@ -3,6 +3,7 @@ import algorithme.*;
 import utils.Coordonnee;
 import utils.Direction;
 import jeu.Main;
+import jeu.Minotaur;
 
 import org.newdawn.slick.*;
 import java.util.Set;
@@ -18,6 +19,8 @@ public class AfficherLabyrinthe {
 	private final Sprite chat;
 	private Image imageChat;
 	
+	private Minotaur minotaur;
+	
 	private Set<Coordonnee> cheminSet;
 	
 	public AfficherLabyrinthe(Labyrinthe labyrinthe, int tempsDeplacementMax, Coordonnee coordLabyrinthe) {
@@ -28,6 +31,7 @@ public class AfficherLabyrinthe {
         this.tempsDeplacementMax = tempsDeplacementMax;
         chat = new Sprite("CatSprits", 4, tempsDeplacementMax);
         imageChat = chat.getSprite(Direction.DROITE, 0);
+        minotaur = new Minotaur(labyrinthe.getDebut(), labyrinthe.trouverChemin(labyrinthe.getFin(), labyrinthe.getDebut()), 150);
     }
 	
 	public void setCheminSet(Set<Coordonnee> cheminSet) {
@@ -52,6 +56,7 @@ public class AfficherLabyrinthe {
 	}
 	
 	public void updateLabyrinthe(int delta) {
+		minotaur.update(delta);
 		if (!deplacement.equals(Direction.NULLE)) {
 			updateTempsDeplacement(delta);
 			imageChat = chat.getSprite(deplacement, tempsDeplacement);
@@ -70,6 +75,9 @@ public class AfficherLabyrinthe {
 			coordLabyrinthe = coordLabyrinthe.addMod(deplacement);
 			coordCentreImage = coordLabyrinthe.mul(Main.TAILLECASE);
 			deplacement = d;
+			if (labyrinthe.estValide(coordLabyrinthe)) {
+				minotaur.updateChemin(coordLabyrinthe);
+			}
 		}
 	}
 	
@@ -106,6 +114,10 @@ public class AfficherLabyrinthe {
 				g.fillRect(coord.getX() * Main.TAILLECASE - coordCentreImage.getX() + width / 2,
 						coord.getY() * Main.TAILLECASE - coordCentreImage.getY() + height / 2, Main.TAILLECASE,
 						Main.TAILLECASE);
+				if (coord.equals(minotaur.getPosition())) {
+					minotaur.draw(coord.getX() * Main.TAILLECASE - coordCentreImage.getX() + width / 2,
+							coord.getY() * Main.TAILLECASE - coordCentreImage.getY() + height / 2);
+				}
 			}
 		}
 		imageChat.draw(width / 2, height / 2, Main.TAILLECASE, Main.TAILLECASE);
