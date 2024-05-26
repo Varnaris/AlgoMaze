@@ -10,15 +10,15 @@ import org.newdawn.slick.*;
 import org.newdawn.slick.state.*;
 
 public class Main extends BasicGameState {
-	public static final int TAILLECASE = 100;
+	public static final int TAILLECASE = 80;
 	public static final Random RANDOM = new Random();
-	public static final int LARGEURMAX = 201;
+	public static final int LARGEURMAX = 17;
 	
 	private Labyrinthe labyrinthe;
 	private AfficherLabyrinthe affichage;
 	private Coordonnee debut;
 	private Coordonnee fin;
-	private Image lumiere;
+	//private Image lumiere;
 	//private Minotaur minotaur;
 
 	public Main(int state) {
@@ -26,7 +26,7 @@ public class Main extends BasicGameState {
 
 	@Override
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
-		labyrinthe = new Labyrinthe(31, 0.9f, 0.1f, 1.0f);
+		labyrinthe = new Labyrinthe(LARGEURMAX, 0.9f, 0.1f, 1.0f);
 		debut = labyrinthe.getDebut();
 		fin = labyrinthe.getFin();
 		Coordonnee d = new Coordonnee(debut.getX() - gc.getWidth() / (2*TAILLECASE), debut.getY());
@@ -34,7 +34,7 @@ public class Main extends BasicGameState {
 		Set<Coordonnee> cheminSet = labyrinthe.trouverChemin(debut, fin).getCoordonnees();
 		cheminSet = Utils.getRandomSubset(cheminSet, 0.5f);
 		affichage.setCheminSet(cheminSet);
-		lumiere = new Image("sprite/grotte.png");
+		//lumiere = new Image("sprite/grotte.png");
 		//minotaur = new Minotaur(debut, labyrinthe.trouverChemin(debut, fin), 150);
 		
 	}
