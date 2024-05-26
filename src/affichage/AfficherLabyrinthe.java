@@ -31,7 +31,7 @@ public class AfficherLabyrinthe {
         this.tempsDeplacementMax = tempsDeplacementMax;
         chat = new Sprite("CatSprits", 4, tempsDeplacementMax);
         imageChat = chat.getSprite(Direction.DROITE, 0);
-        minotaur = new Minotaur(labyrinthe.getFin(), labyrinthe.trouverChemin(labyrinthe.getFin(), labyrinthe.getDebut()), 150);
+        minotaur = new Minotaur(labyrinthe.getFin(), labyrinthe.trouverChemin(labyrinthe.getFin(), labyrinthe.getDebut()), 300);
     }
 	
 	public void setCheminSet(Set<Coordonnee> cheminSet) {
@@ -61,7 +61,7 @@ public class AfficherLabyrinthe {
 			updateTempsDeplacement(delta);
 			imageChat = chat.getSprite(deplacement, tempsDeplacement);
 			if (tempsDeplacement >= tempsDeplacementMax) {
-				tempsDeplacement = 0;
+				tempsDeplacement -= tempsDeplacementMax;
 				coordLabyrinthe = coordLabyrinthe.addMod(deplacement);
 				coordCentreImage = coordLabyrinthe.mul(Main.TAILLECASE);
 				deplacement = Direction.NULLE;
@@ -114,13 +114,22 @@ public class AfficherLabyrinthe {
 				g.fillRect(coord.getX() * Main.TAILLECASE - coordCentreImage.getX() + width / 2,
 						coord.getY() * Main.TAILLECASE - coordCentreImage.getY() + height / 2, Main.TAILLECASE,
 						Main.TAILLECASE);
-				if (coord.equals(minotaur.getPosition())) {
-					minotaur.draw(coord.getX() * Main.TAILLECASE - coordCentreImage.getX() + width / 2,
-							coord.getY() * Main.TAILLECASE - coordCentreImage.getY() + height / 2);
-				}
 			}
 		}
 		imageChat.draw(width / 2, height / 2, Main.TAILLECASE, Main.TAILLECASE);
+		afficherMinotaur(width, height);
+	}
+
+	private void afficherMinotaur(float width, float height) {
+		Coordonnee coord = minotaur.getPosition();
+		if (coord.getX() >= coordLabyrinthe.getX() - (width / Main.TAILLECASE) / 2 - 2
+				&& coord.getX() <= coordLabyrinthe.getX() + (width / Main.TAILLECASE) / 2 + 2
+				&& coord.getY() >= coordLabyrinthe.getY() - (height / Main.TAILLECASE) / 2 - 2
+				&& coord.getY() <= coordLabyrinthe.getY() + (height / Main.TAILLECASE) / 2 + 2) {
+			
+			minotaur.draw(coord.getX() * Main.TAILLECASE - coordCentreImage.getX() + width / 2,
+				coord.getY() * Main.TAILLECASE - coordCentreImage.getY() + height / 2);
+		}
 	}
 	
 	public void afficherChemin(Set<Coordonnee> cheminSet, GameContainer gc, Graphics g) {

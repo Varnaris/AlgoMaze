@@ -12,7 +12,7 @@ import org.newdawn.slick.state.*;
 public class Main extends BasicGameState {
 	public static final int TAILLECASE = 80;
 	public static final Random RANDOM = new Random();
-	public static final int LARGEURMAX = 17;
+	public static final int LARGEURMAX = 51;
 	
 	private Labyrinthe labyrinthe;
 	private AfficherLabyrinthe affichage;
@@ -26,7 +26,7 @@ public class Main extends BasicGameState {
 
 	@Override
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
-		labyrinthe = new Labyrinthe(LARGEURMAX, 0.9f, 0.1f, 1.0f);
+		labyrinthe = new Labyrinthe(LARGEURMAX, 0.1f, 0.3f, 1.0f);
 		debut = labyrinthe.getDebut();
 		fin = labyrinthe.getFin();
 		Coordonnee d = new Coordonnee(debut.getX() - gc.getWidth() / (2*TAILLECASE), debut.getY());
