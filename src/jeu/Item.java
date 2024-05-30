@@ -2,6 +2,7 @@ package jeu;
 
 import org.newdawn.slick.Image;
 
+import affichage.AfficherLabyrinthe;
 import utils.Coordonnee;
 
 public abstract class Item {
@@ -43,5 +44,16 @@ public abstract class Item {
 			return getCoordonnee().equals(i.getCoordonnee());
 		}
 		return false;
+	}
+	
+	public void prendreItem(AfficherLabyrinthe affichage) {
+		affichage.enleverItem(this);
+		effectuerEffet(affichage);
+	}
+	
+	protected abstract void effectuerEffet(AfficherLabyrinthe affichage);
+	
+	public void update(int delta) {
+		return;
 	}
 }

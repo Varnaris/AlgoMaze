@@ -36,8 +36,6 @@ public class Main extends BasicGameState {
 		cheminSet = Utils.getRandomSubset(cheminSet, 0.5f);
 		affichage.setCheminSet(cheminSet);
 		//lumiere = new Image("sprite/grotte.png");
-		
-		
 	}
 
 	@Override

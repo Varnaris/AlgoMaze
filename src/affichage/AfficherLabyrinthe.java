@@ -2,6 +2,7 @@ package affichage;
 import algorithme.*;
 import utils.Coordonnee;
 import utils.Direction;
+import jeu.Item;
 import jeu.Main;
 import jeu.Minotaur;
 
@@ -26,8 +27,9 @@ public class AfficherLabyrinthe {
 	private Minotaur minotaur;
 	
 	private Set<Coordonnee> cheminSet;
+	private Set<Item> items;
 	
-	public AfficherLabyrinthe(Labyrinthe labyrinthe,Minotaur minotaur,Coordonnee debut, int tempsDeplacementMax, Coordonnee coordLabyrinthe) {
+	public AfficherLabyrinthe(Labyrinthe labyrinthe, Minotaur minotaur, Coordonnee debut, int tempsDeplacementMax, Coordonnee coordLabyrinthe) {
         this.labyrinthe = labyrinthe;
         this.coordLabyrinthe = coordLabyrinthe;
         coordCentreImage = coordLabyrinthe.mul(Main.TAILLECASE);
@@ -159,4 +161,17 @@ public class AfficherLabyrinthe {
 					Main.TAILLECASE);
 		}
     }
+	
+	public void teleporterChat(Coordonnee coord) {
+		coordLabyrinthe = coord;
+		coordCentreImage = coord.mul(Main.TAILLECASE);
+	}
+	
+	public void enleverItem(Item item) {
+		items.remove(item);
+	}
+	
+	public Labyrinthe getLabyrinthe() {
+		return labyrinthe;
+	}
 }
