@@ -17,7 +17,12 @@ public class Portail extends Item {
 
 	@Override
 	public void effectuerEffet(AfficherLabyrinthe affichage) {
-	    return;
+	    Coordonnee arrivee = affichage.getLabyrinthe().prendreFeuilleAleatoire();
+	    
+		if (getCoordonnee().equals(arrivee)) {
+			arrivee = affichage.getLabyrinthe().prendreFeuilleAleatoire();
+		}
+		affichage.setCoordChat(arrivee);
 	}
 
 	@Override

@@ -33,18 +33,9 @@ public class Main extends BasicGameState {
 		Coordonnee d = new Coordonnee(debut.getX() - gc.getWidth() / (2*TAILLECASE), debut.getY());
 		minotaur = new Minotaur(labyrinthe, fin, labyrinthe.trouverChemin(fin, debut), 800);
 		Set<Item> setItems = new HashSet<>();
-		setItems.add(new Portail(labyrinthe.prendreFeuilleAleatoire()));
-		setItems.add(new Portail(labyrinthe.prendreFeuilleAleatoire()));
-		setItems.add(new Portail(labyrinthe.prendreFeuilleAleatoire()));
-		setItems.add(new Portail(labyrinthe.prendreFeuilleAleatoire()));
-		setItems.add(new Portail(labyrinthe.prendreFeuilleAleatoire()));
-		setItems.add(new Portail(labyrinthe.prendreFeuilleAleatoire()));
-		setItems.add(new Portail(labyrinthe.prendreFeuilleAleatoire()));
-		setItems.add(new Portail(labyrinthe.prendreFeuilleAleatoire()));
-		setItems.add(new Portail(labyrinthe.prendreFeuilleAleatoire()));
-		setItems.add(new Portail(labyrinthe.prendreFeuilleAleatoire()));
-		setItems.add(new Portail(labyrinthe.prendreFeuilleAleatoire()));
-		setItems.add(new Portail(labyrinthe.prendreFeuilleAleatoire()));
+		for (int i = 0; i < 60; i++) {
+			setItems.add(new Portail(labyrinthe.prendreFeuilleAleatoire()));
+		}
 		
 		affichage = new AfficherLabyrinthe(labyrinthe, minotaur, debut,150, d, setItems);
 		Set<Coordonnee> cheminSet = filDArianne();

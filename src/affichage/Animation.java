@@ -25,8 +25,8 @@ public class Animation {
 	private void initSprites(Image image, Coordonnee taille, Coordonnee debut) {
 		int tailleCase = image.getWidth()/taille.getX();
 		for (int i = 0; i < nbSprite; i++) {
-			int x = (debut.getX() * tailleCase + (i % taille.getX()) * tailleCase);
-			int y = ((debut.getX() * tailleCase + i * tailleCase) / image.getWidth()) + debut.getY() * tailleCase;
+			int x = ((debut.getX() + i)%taille.getX()) * tailleCase;
+			int y = (debut.getY() + (debut.getX() + i)/taille.getX()) * tailleCase;
 			
 			images[i] = image.getSubImage(x, y, tailleCase, tailleCase);
 			images[i] = images[i].getScaledCopy(Main.TAILLECASE, Main.TAILLECASE);

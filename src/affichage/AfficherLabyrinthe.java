@@ -124,12 +124,16 @@ public class AfficherLabyrinthe {
 	}
 	
 	private void updateItems(int delta) {
+		Item itemToRemove = null;
 		for (Item item : items) {
 			item.update(delta);
 			if (item.getCoordonnee().equals(coordLabyrinthe)) {
-				//sitem.effectuerEffet(this);
-				items.remove(item);
+				itemToRemove = item;
+				item.effectuerEffet(this);
 			}
+		}
+		if (itemToRemove != null) {
+			enleverItem(itemToRemove);
 		}
 	}
 	
@@ -156,9 +160,9 @@ public class AfficherLabyrinthe {
 						Main.TAILLECASE);
 			}
 		}
+		afficherItems(width, height);
 		imageChat.draw(width / 2, height / 2, Main.TAILLECASE, Main.TAILLECASE);
 		afficherMinotaur(width, height);
-		afficherItems(width, height);
 	}
 
 	private void afficherMinotaur(float width, float height) {
