@@ -23,7 +23,7 @@ public class AfficherLabyrinthe {
 	
 	private Set<Coordonnee> cheminSet;
 	
-	public AfficherLabyrinthe(Labyrinthe labyrinthe, int tempsDeplacementMax, Coordonnee coordLabyrinthe) {
+	public AfficherLabyrinthe(Labyrinthe labyrinthe,Minotaur minotaur, int tempsDeplacementMax, Coordonnee coordLabyrinthe) {
         this.labyrinthe = labyrinthe;
         this.coordLabyrinthe = coordLabyrinthe;
         coordCentreImage = coordLabyrinthe.mul(Main.TAILLECASE);
@@ -31,7 +31,7 @@ public class AfficherLabyrinthe {
         this.tempsDeplacementMax = tempsDeplacementMax;
         chat = new Sprite("CatSprits", 4, tempsDeplacementMax);
         imageChat = chat.getSprite(Direction.DROITE, 0);
-        minotaur = new Minotaur(labyrinthe.getFin(), labyrinthe.trouverChemin(labyrinthe.getFin(), labyrinthe.getDebut()), 300);
+        this.minotaur = minotaur;
     }
 	
 	public void setCheminSet(Set<Coordonnee> cheminSet) {

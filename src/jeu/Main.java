@@ -19,7 +19,7 @@ public class Main extends BasicGameState {
 	private Coordonnee debut;
 	private Coordonnee fin;
 	//private Image lumiere;
-	//private Minotaur minotaur;
+	private Minotaur minotaur;
 
 	public Main(int state) {
 	}
@@ -30,12 +30,13 @@ public class Main extends BasicGameState {
 		debut = labyrinthe.getDebut();
 		fin = labyrinthe.getFin();
 		Coordonnee d = new Coordonnee(debut.getX() - gc.getWidth() / (2*TAILLECASE), debut.getY());
-		affichage = new AfficherLabyrinthe(labyrinthe,150, d);
+		minotaur = new Minotaur(fin, labyrinthe.trouverChemin(fin, debut), 300);
+		affichage = new AfficherLabyrinthe(labyrinthe, minotaur,150, d);
 		Set<Coordonnee> cheminSet = labyrinthe.trouverChemin(debut, fin).getCoordonnees();
 		cheminSet = Utils.getRandomSubset(cheminSet, 0.5f);
 		affichage.setCheminSet(cheminSet);
 		//lumiere = new Image("sprite/grotte.png");
-		//minotaur = new Minotaur(debut, labyrinthe.trouverChemin(debut, fin), 150);
+		
 		
 	}
 
