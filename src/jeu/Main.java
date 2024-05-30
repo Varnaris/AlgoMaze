@@ -33,7 +33,7 @@ public class Main extends BasicGameState {
 		Coordonnee d = new Coordonnee(debut.getX() - gc.getWidth() / (2*TAILLECASE), debut.getY());
 		minotaur = new Minotaur(labyrinthe, fin, labyrinthe.trouverChemin(fin, debut), 800);
 		Set<Item> setItems = new HashSet<>();
-		for (int i = 0; i < 60; i++) {
+		for (int i = 0; i < 10; i++) {
 			setItems.add(new Portail(labyrinthe.prendreFeuilleAleatoire()));
 		}
 		
