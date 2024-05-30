@@ -229,6 +229,5 @@ public class Labyrinthe implements Iterable<Iterable<Coordonnee>>{
 			return candidatArrivee;
 		}
 		
-		
 	}
 }

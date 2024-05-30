@@ -39,6 +39,7 @@ public class Minotaur {
 	
 	public void update(int delta) {
 		tempsDeplacement += delta;
+		imageMino = mino.getSprite(route.getMod(), tempsDeplacement);
 		if (tempsDeplacement >= tempsDeplacementMax) {
 			tempsDeplacement -= tempsDeplacementMax;
 			nextPosition();

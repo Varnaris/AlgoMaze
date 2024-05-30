@@ -60,4 +60,8 @@ public class Coordonnee {
 	public boolean estVoisin(Coordonnee c) {
 		return (this.x == c.x && Math.abs(this.y - c.y) == 1) || (this.y == c.y && Math.abs(this.x - c.x) == 1);
 	}
+	
+	public static int distance(Coordonnee c1, Coordonnee c2) {
+		return Math.abs(c1.x - c2.x) + Math.abs(c1.y - c2.y);
+	}
 }
