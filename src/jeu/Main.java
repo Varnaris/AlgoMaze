@@ -18,7 +18,7 @@ public class Main extends BasicGameState {
 	private AfficherLabyrinthe affichage;
 	private Coordonnee debut;
 	private Coordonnee fin;
-	//private Image lumiere;
+	private Image lumiere;
 	private Minotaur minotaur;
 
 	public Main(int state) {
@@ -33,18 +33,18 @@ public class Main extends BasicGameState {
 		minotaur = new Minotaur(labyrinthe, fin, labyrinthe.trouverChemin(fin, debut), 300);
 		affichage = new AfficherLabyrinthe(labyrinthe, minotaur, debut,150, d);
 		Set<Coordonnee> cheminSet = labyrinthe.trouverChemin(debut, fin).getCoordonnees();
-		cheminSet = Utils.getRandomSubset(cheminSet, 0.5f);
+		cheminSet = Utils.getRandomSubset(cheminSet, 0.2f);
 		affichage.setCheminSet(cheminSet);
-		//lumiere = new Image("sprite/grotte.png");
+		lumiere = new Image("sprite/grotte.png");
 	}
 
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
 		affichage.afficherLabyrinthe(gc, g);
-		//minotaur.draw(gc);
-		
-		//lumiere.draw(TAILLECASE / 2f - lumiere.getWidth() / 2f + gc.getWidth() / 2f,
-			//	TAILLECASE / 2f - lumiere.getHeight() / 2f + gc.getHeight() / 2f); 
+		int scaleLight = 1;
+		lumiere.draw(TAILLECASE / 2f - lumiere.getWidth() / 2f + gc.getWidth() / 2f - lumiere.getWidth() / (2*scaleLight),
+				TAILLECASE / 2f - lumiere.getHeight() / 2f + gc.getHeight() / 2f - lumiere.getHeight() / (2*scaleLight),
+				lumiere.getWidth() + lumiere.getWidth() / scaleLight , lumiere.getHeight() + lumiere.getHeight() / scaleLight ); 
 	}
 
 	@Override
@@ -53,7 +53,6 @@ public class Main extends BasicGameState {
 		affichage.updateLabyrinthe(delta);
 		updateFin(gc, sbg);
 		updateBounds(gc, sbg);
-		//minotaur.update(delta);
 	}
 	
 	private void updateFin(GameContainer gc, StateBasedGame sbg) throws SlickException {
