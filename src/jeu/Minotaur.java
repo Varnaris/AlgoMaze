@@ -104,7 +104,13 @@ public class Minotaur {
 	}
 		
 	public void updateChemin(Coordonnee coordChat) {
-		route.corrigerFinChemin(coordChat);
+		try {
+			route.corrigerFinChemin(coordChat);
+		} catch (IllegalArgumentException e) {
+			if (!route.hasNext()) {
+				route = labyrinthe.trouverChemin(position, coordChat);
+			}
+		}
 		posChat = coordChat;
 	}
 }

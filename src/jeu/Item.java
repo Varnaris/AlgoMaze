@@ -8,16 +8,10 @@ import utils.Coordonnee;
 public abstract class Item {
 	private String nom;
 	private Coordonnee coordonnee;
-	private Image sprite;
 	
-	protected Item(String nom, Coordonnee coordonnee, String path) {
+	protected Item(String nom, Coordonnee coordonnee) {
 		this.nom = nom;
 		this.coordonnee = coordonnee;
-		try {
-			sprite = new Image(path);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 	}
 	
 	public String getNom() {
@@ -28,9 +22,7 @@ public abstract class Item {
 		return coordonnee;
 	}
 	
-	public Image getSprite() {
-		return sprite;
-	}
+	public abstract Image getSprite();
 	
 	@Override
 	public int hashCode() {
@@ -46,14 +38,7 @@ public abstract class Item {
 		return false;
 	}
 	
-	public void prendreItem(AfficherLabyrinthe affichage) {
-		affichage.enleverItem(this);
-		effectuerEffet(affichage);
-	}
+	public abstract void effectuerEffet(AfficherLabyrinthe affichage);
 	
-	protected abstract void effectuerEffet(AfficherLabyrinthe affichage);
-	
-	public void update(int delta) {
-		return;
-	}
+	public abstract void update(int delta);
 }

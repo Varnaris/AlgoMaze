@@ -4,7 +4,6 @@ import org.newdawn.slick.SlickException;
 import utils.Direction;
 
 public class Sprite {
-	private String nom;
 	private int nbSprite;
 	private int cycle;
 	
@@ -14,7 +13,6 @@ public class Sprite {
 	private Image[] spritesDroite;
 	
 	public Sprite(String nom, int nbSprite, int cycle) {
-		this.nom = nom;
 		this.nbSprite = nbSprite;
 		this.cycle = cycle;
 		spritesHaut = new Image[nbSprite];
@@ -23,13 +21,13 @@ public class Sprite {
 		spritesDroite = new Image[nbSprite];
 		String chemin = "sprite/" + nom + "/";
 		try {
-			initSprites(chemin);
+			initSprites(chemin, nom);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-	private void initSprites(String chemin) throws SlickException {
+	private void initSprites(String chemin, String nom) throws SlickException {
 		for (int i = 0; i < nbSprite; i++) {
 			String nombre = (i == 0) ? "" : Integer.toString(i);
 			spritesHaut[i] = new Image(chemin + nom + "Up" + nombre + ".png");

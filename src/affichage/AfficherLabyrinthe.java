@@ -30,9 +30,10 @@ public class AfficherLabyrinthe {
 	private Set<Coordonnee> cheminSet;
 	private Set<Item> items;
 	
-	public AfficherLabyrinthe(Labyrinthe labyrinthe, Minotaur minotaur, Coordonnee debut, int tempsDeplacementMax, Coordonnee coordLabyrinthe) {
+	public AfficherLabyrinthe(Labyrinthe labyrinthe, Minotaur minotaur, Coordonnee debut, int tempsDeplacementMax, Coordonnee coordLabyrinthe, Set<Item> items) {
         this.labyrinthe = labyrinthe;
         this.coordLabyrinthe = coordLabyrinthe;
+        this.items = items;
         coordCentreImage = coordLabyrinthe.mul(Main.TAILLECASE);
         deplacement = Direction.NULLE;
         this.tempsDeplacementMax = tempsDeplacementMax;
@@ -67,9 +68,11 @@ public class AfficherLabyrinthe {
 	}
 	
 	public void updateLabyrinthe(int delta) {
+		updateItems(delta);
 		if (estApparuMino ) {
 			minotaur.update(delta);
 		}
+		minotaur.update(delta);
 		if (!deplacement.equals(Direction.NULLE)) {
 			updateTempsDeplacement(delta);
 			imageChat = chat.getSprite(deplacement, tempsDeplacement);
@@ -123,6 +126,16 @@ public class AfficherLabyrinthe {
 		coordCentreImage = coordLabyrinthe.mul(Main.TAILLECASE).addMod(d);
 	}
 	
+	private void updateItems(int delta) {
+		for (Item item : items) {
+			item.update(delta);
+			if (item.getCoordonnee().equals(coordLabyrinthe)) {
+				//sitem.effectuerEffet(this);
+				items.remove(item);
+			}
+		}
+	}
+	
 	public void afficherLabyrinthe(GameContainer gc, Graphics g) {
 		float width = gc.getWidth();
 	    float height = gc.getHeight();
@@ -148,6 +161,7 @@ public class AfficherLabyrinthe {
 		}
 		imageChat.draw(width / 2, height / 2, Main.TAILLECASE, Main.TAILLECASE);
 		afficherMinotaur(width, height);
+		afficherItems(width, height);
 	}
 
 	private void afficherMinotaur(float width, float height) {
@@ -162,6 +176,20 @@ public class AfficherLabyrinthe {
 		}
 	}
 	
+	private void afficherItems(float width, float height) {
+		for (Item item : items) {
+			Coordonnee coord = item.getCoordonnee();
+			if (coord.getX() >= coordLabyrinthe.getX() - (width / Main.TAILLECASE) / 2 - 2
+					&& coord.getX() <= coordLabyrinthe.getX() + (width / Main.TAILLECASE) / 2 + 2
+					&& coord.getY() >= coordLabyrinthe.getY() - (height / Main.TAILLECASE) / 2 - 2
+					&& coord.getY() <= coordLabyrinthe.getY() + (height / Main.TAILLECASE) / 2 + 2) {
+				Image image = item.getSprite();
+				image.draw(coord.getX() * Main.TAILLECASE - coordCentreImage.getX() + width / 2,
+						coord.getY() * Main.TAILLECASE - coordCentreImage.getY() + height / 2);
+			}
+		}
+	}
+	
 	public void afficherChemin(Set<Coordonnee> cheminSet, GameContainer gc, Graphics g) {
 		g.setColor(Color.green);
 		for (Coordonnee coord : cheminSet) {
@@ -170,11 +198,6 @@ public class AfficherLabyrinthe {
 					Main.TAILLECASE);
 		}
     }
-	
-	public void teleporterChat(Coordonnee coord) {
-		coordLabyrinthe = coord;
-		coordCentreImage = coord.mul(Main.TAILLECASE);
-	}
 	
 	public void enleverItem(Item item) {
 		items.remove(item);

@@ -3,6 +3,7 @@ import algorithme.*;
 import utils.*;
 import affichage.*;
 
+import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 import org.lwjgl.opengl.Display;
@@ -12,7 +13,7 @@ import org.newdawn.slick.state.*;
 public class Main extends BasicGameState {
 	public static final int TAILLECASE = 80;
 	public static final Random RANDOM = new Random();
-	public static final int LARGEURMAX = 51;
+	public static final int LARGEURMAX = 21;
 	
 	private Labyrinthe labyrinthe;
 	private AfficherLabyrinthe affichage;
@@ -31,11 +32,22 @@ public class Main extends BasicGameState {
 		fin = labyrinthe.getFin();
 		Coordonnee d = new Coordonnee(debut.getX() - gc.getWidth() / (2*TAILLECASE), debut.getY());
 		minotaur = new Minotaur(labyrinthe, fin, labyrinthe.trouverChemin(fin, debut), 300);
-		affichage = new AfficherLabyrinthe(labyrinthe, minotaur, debut,150, d);
-		Set<Coordonnee> cheminSet = labyrinthe.trouverChemin(debut, fin).getCoordonnees();
-		cheminSet = Utils.getRandomSubset(cheminSet, 0.2f);
+		Set<Item> setItems = new HashSet<>();
+		setItems.add(new Portail(labyrinthe.prendreFeuilleAleatoire()));
+		setItems.add(new Portail(labyrinthe.prendreFeuilleAleatoire()));
+		setItems.add(new Portail(labyrinthe.prendreFeuilleAleatoire()));
+		setItems.add(new Portail(labyrinthe.prendreFeuilleAleatoire()));
+		
+		affichage = new AfficherLabyrinthe(labyrinthe, minotaur, debut,150, d, setItems);
+		Set<Coordonnee> cheminSet = filDArianne();
 		affichage.setCheminSet(cheminSet);
 		lumiere = new Image("sprite/grotte.png");
+	}
+
+	private Set<Coordonnee> filDArianne() {
+		Set<Coordonnee> cheminSet = labyrinthe.trouverChemin(debut, fin).getCoordonnees();
+		cheminSet = Utils.getRandomSubSet(cheminSet, 0.1f);
+		return cheminSet;
 	}
 
 	@Override
