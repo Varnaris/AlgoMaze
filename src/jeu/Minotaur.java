@@ -43,7 +43,7 @@ public class Minotaur {
 		this.position = position;
 		this.route = route;
 		this.tempsDeplacementMax = tempsDeplacementMax;
-		tmpStunMax = tempsDeplacementMax*3;
+		tmpStunMax = tempsDeplacementMax*8;
 		mino = new Sprite("Minotaur", 4, tempsDeplacementMax);
 		imageMino = mino.getSprite(Direction.GAUCHE, 0);
 		posChat = position;
@@ -112,5 +112,9 @@ public class Minotaur {
 			}
 		}
 		posChat = coordChat;
+	}
+	
+	public boolean estStun() {
+		return stun;
 	}
 }

@@ -18,14 +18,14 @@ public class AfficherLabyrinthe {
 	private final int tempsDeplacementMax;
 	
 	private Coordonnee debut;
-	private boolean estApparuMino;
-	private boolean estEntreDansLabyrinthe;
+	private boolean estApparuMino = false;
+	private boolean estEntreDansLabyrinthe = false;
 	
 	private final Sprite chat;
 	private Image imageChat;
 	
 	private Minotaur minotaur;
-	private boolean perdu;
+	private boolean perdu = false;
 	
 	private Set<Coordonnee> cheminSet;
 	private Set<Item> items;
@@ -40,9 +40,6 @@ public class AfficherLabyrinthe {
         chat = new Sprite("CatSprits", 4, tempsDeplacementMax);
         imageChat = chat.getSprite(Direction.DROITE, 0);
         this.minotaur = minotaur;
-        estApparuMino = false;
-        estEntreDansLabyrinthe = false;
-        perdu = false;
         this.debut = debut.addMod(Direction.DROITE);
     }
 	
@@ -83,7 +80,7 @@ public class AfficherLabyrinthe {
 				deplacement = Direction.NULLE;
 			}
 		}
-		perdu = coordLabyrinthe.equals(minotaur.getPosition());
+		perdu = coordLabyrinthe.equals(minotaur.getPosition()) && !minotaur.estStun();
 	}
 	
 	public boolean isPerdu() {
