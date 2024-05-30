@@ -16,6 +16,11 @@ public class AfficherLabyrinthe {
 	private int tempsDeplacement = 0;
 	private final int tempsDeplacementMax;
 	
+	private Coordonnee debut;
+	private boolean minoTp;
+	private boolean estEntre;
+	private int caseFaites = 0;
+	
 	private final Sprite chat;
 	private Image imageChat;
 	
@@ -23,7 +28,7 @@ public class AfficherLabyrinthe {
 	
 	private Set<Coordonnee> cheminSet;
 	
-	public AfficherLabyrinthe(Labyrinthe labyrinthe,Minotaur minotaur, int tempsDeplacementMax, Coordonnee coordLabyrinthe) {
+	public AfficherLabyrinthe(Labyrinthe labyrinthe,Minotaur minotaur,Coordonnee debut, int tempsDeplacementMax, Coordonnee coordLabyrinthe) {
         this.labyrinthe = labyrinthe;
         this.coordLabyrinthe = coordLabyrinthe;
         coordCentreImage = coordLabyrinthe.mul(Main.TAILLECASE);
@@ -32,6 +37,9 @@ public class AfficherLabyrinthe {
         chat = new Sprite("CatSprits", 4, tempsDeplacementMax);
         imageChat = chat.getSprite(Direction.DROITE, 0);
         this.minotaur = minotaur;
+        minoTp = false;
+        estEntre = false;
+        this.debut = debut.addMod(Direction.DROITE);
     }
 	
 	public void setCheminSet(Set<Coordonnee> cheminSet) {
@@ -71,6 +79,20 @@ public class AfficherLabyrinthe {
 	
 	public void faireDeplacement(Direction d) {
 		imageChat = chat.getSprite(d, 0);
+		if (! minoTp) {
+			if (!estEntre) {
+				if (debut.equals(coordLabyrinthe)) {
+					estEntre = true;
+					caseFaites ++;
+				}
+			} else {
+				caseFaites++;
+				if (caseFaites>= 10) {
+					minotaur = new Minotaur(debut, labyrinthe.trouverChemin(debut, coordLabyrinthe), minotaur.getTempsDeplacementMax());
+					minoTp = true;
+				}
+			}
+		}
 		if (estDeplacementValide(d)) {
 			coordLabyrinthe = coordLabyrinthe.addMod(deplacement);
 			coordCentreImage = coordLabyrinthe.mul(Main.TAILLECASE);

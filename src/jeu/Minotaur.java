@@ -15,6 +15,14 @@ public class Minotaur {
 	private int tempsDeplacement = 0;
 	
 	private final Sprite mino;
+	public int getTempsDeplacementMax() {
+		return tempsDeplacementMax;
+	}
+
+	public Sprite getMino() {
+		return mino;
+	}
+
 	private Image imageMino;
 	
 	public Coordonnee getPosition() {

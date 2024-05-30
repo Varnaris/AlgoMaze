@@ -31,7 +31,7 @@ public class Main extends BasicGameState {
 		fin = labyrinthe.getFin();
 		Coordonnee d = new Coordonnee(debut.getX() - gc.getWidth() / (2*TAILLECASE), debut.getY());
 		minotaur = new Minotaur(fin, labyrinthe.trouverChemin(fin, debut), 300);
-		affichage = new AfficherLabyrinthe(labyrinthe, minotaur,150, d);
+		affichage = new AfficherLabyrinthe(labyrinthe, minotaur, debut,150, d);
 		Set<Coordonnee> cheminSet = labyrinthe.trouverChemin(debut, fin).getCoordonnees();
 		cheminSet = Utils.getRandomSubset(cheminSet, 0.5f);
 		affichage.setCheminSet(cheminSet);
