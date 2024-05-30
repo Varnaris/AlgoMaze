@@ -12,7 +12,7 @@ public class Portail extends Item {
 	
 	public Portail(Coordonnee coordonnee) {
 		super("Portail", coordonnee);
-		portail = new Animation(new Coordonnee(5, 7), new Coordonnee(0, 0), "sprite/Items/portail.png", 32, 10000);
+		portail = new Animation(new Coordonnee(5, 7), new Coordonnee(0, 0), "sprite/Items/portail.png", 32, 1000);
 	}
 
 	@Override
@@ -27,6 +27,6 @@ public class Portail extends Item {
 
 	@Override
 	public void update(int delta) {
-		temps = (temps + delta) % 10000;
+		temps = (temps + delta) % 1000;
 	}
 }
