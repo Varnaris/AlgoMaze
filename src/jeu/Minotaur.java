@@ -21,8 +21,10 @@ public class Minotaur {
 	private int tmpStun = 0;
 	private int tmpStunMax;
 	private Coordonnee posChat;
-	
+	private Image imageMino;
 	private final Sprite mino;
+
+
 	public int getTempsDeplacementMax() {
 		return tempsDeplacementMax;
 	}
@@ -31,7 +33,6 @@ public class Minotaur {
 		return mino;
 	}
 
-	private Image imageMino;
 	
 	public Coordonnee getPosition() {
 		return position;

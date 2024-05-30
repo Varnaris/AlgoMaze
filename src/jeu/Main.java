@@ -51,8 +51,15 @@ public class Main extends BasicGameState {
 	public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
 		lireDeplacement(gc);
 		affichage.updateLabyrinthe(delta);
+		updateFin(gc, sbg);
 		updateBounds(gc, sbg);
 		//minotaur.update(delta);
+	}
+	
+	private void updateFin(GameContainer gc, StateBasedGame sbg) throws SlickException {
+		if (affichage.isPerdu()) {
+			init(gc, sbg);
+		}
 	}
 
 	private void updateBounds(GameContainer gc, StateBasedGame sbg) throws SlickException {

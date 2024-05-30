@@ -25,6 +25,7 @@ public class AfficherLabyrinthe {
 	private Image imageChat;
 	
 	private Minotaur minotaur;
+	private boolean perdu;
 	
 	private Set<Coordonnee> cheminSet;
 	private Set<Item> items;
@@ -40,6 +41,7 @@ public class AfficherLabyrinthe {
         this.minotaur = minotaur;
         estApparuMino = false;
         estEntreDansLabyrinthe = false;
+        perdu = false;
         this.debut = debut.addMod(Direction.DROITE);
     }
 	
@@ -65,7 +67,9 @@ public class AfficherLabyrinthe {
 	}
 	
 	public void updateLabyrinthe(int delta) {
-		minotaur.update(delta);
+		if (estApparuMino ) {
+			minotaur.update(delta);
+		}
 		if (!deplacement.equals(Direction.NULLE)) {
 			updateTempsDeplacement(delta);
 			imageChat = chat.getSprite(deplacement, tempsDeplacement);
@@ -76,6 +80,11 @@ public class AfficherLabyrinthe {
 				deplacement = Direction.NULLE;
 			}
 		}
+		perdu = coordLabyrinthe.equals(minotaur.getPosition());
+	}
+	
+	public boolean isPerdu() {
+		return perdu;
 	}
 	
 	public void faireDeplacement(Direction d) {
