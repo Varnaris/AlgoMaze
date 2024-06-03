@@ -5,6 +5,8 @@ import utils.Direction;
 import algorithme.Chemin;
 import algorithme.Labyrinthe;
 
+import java.util.Set;
+
 import org.newdawn.slick.Image;
 
 import affichage.Sprite;
@@ -116,5 +118,9 @@ public class Minotaur {
 	
 	public boolean estStun() {
 		return stun;
+	}
+	
+	public Set<Coordonnee> getCoordonnees() {
+		return route.getCoordonnees();
 	}
 }

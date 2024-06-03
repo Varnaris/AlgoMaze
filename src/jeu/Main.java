@@ -13,7 +13,7 @@ import org.newdawn.slick.state.*;
 public class Main extends BasicGameState {
 	public static final int TAILLECASE = 80;
 	public static final Random RANDOM = new Random();
-	public static final int LARGEURMAX = 21;
+	public static final int LARGEURMAX = 31;
 	
 	private Labyrinthe labyrinthe;
 	private AfficherLabyrinthe affichage;
@@ -33,9 +33,9 @@ public class Main extends BasicGameState {
 		Coordonnee d = new Coordonnee(debut.getX() - gc.getWidth() / (2*TAILLECASE), debut.getY());
 		minotaur = new Minotaur(labyrinthe, fin, labyrinthe.trouverChemin(fin, debut), 800);
 		Set<Item> setItems = new HashSet<>();
-		for (int i = 0; i < 10; i++) {
+		/*for (int i = 0; i < 10; i++) {
 			setItems.add(new Portail(labyrinthe.prendreFeuilleAleatoire()));
-		}
+		}*/
 		
 		affichage = new AfficherLabyrinthe(labyrinthe, minotaur, debut,150, d, setItems);
 		Set<Coordonnee> cheminSet = filDArianne();
@@ -53,9 +53,9 @@ public class Main extends BasicGameState {
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
 		affichage.afficherLabyrinthe(gc, g);
 		int scaleLight = 1;
-		lumiere.draw(TAILLECASE / 2f - lumiere.getWidth() / 2f + gc.getWidth() / 2f - lumiere.getWidth() / (2*scaleLight),
+		/*lumiere.draw(TAILLECASE / 2f - lumiere.getWidth() / 2f + gc.getWidth() / 2f - lumiere.getWidth() / (2*scaleLight),
 				TAILLECASE / 2f - lumiere.getHeight() / 2f + gc.getHeight() / 2f - lumiere.getHeight() / (2*scaleLight),
-				lumiere.getWidth() + lumiere.getWidth() / scaleLight , lumiere.getHeight() + lumiere.getHeight() / scaleLight ); 
+				lumiere.getWidth() + lumiere.getWidth() / scaleLight , lumiere.getHeight() + lumiere.getHeight() / scaleLight ); */
 	}
 
 	@Override

@@ -160,6 +160,7 @@ public class AfficherLabyrinthe {
 						Main.TAILLECASE);
 			}
 		}
+		afficherChemin(minotaur.getCoordonnees(), gc, g, Color.red);
 		afficherItems(width, height);
 		imageChat.draw(width / 2, height / 2, Main.TAILLECASE, Main.TAILLECASE);
 		afficherMinotaur(width, height);
@@ -191,8 +192,8 @@ public class AfficherLabyrinthe {
 		}
 	}
 	
-	public void afficherChemin(Set<Coordonnee> cheminSet, GameContainer gc, Graphics g) {
-		g.setColor(Color.green);
+	public void afficherChemin(Set<Coordonnee> cheminSet, GameContainer gc, Graphics g, Color color) {
+		g.setColor(color);
 		for (Coordonnee coord : cheminSet) {
 			g.fillRect(coord.getX() * Main.TAILLECASE - coordCentreImage.getX() + gc.getWidth() / 2,
 					coord.getY() * Main.TAILLECASE - coordCentreImage.getY() + gc.getHeight() / 2, Main.TAILLECASE,
